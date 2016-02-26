@@ -19,8 +19,10 @@ ExportedObj/
 *.svd
 
 FMODStudioSettings.asset
+FMODStudioSettings.asset.meta
 fmod_editor.log
 FMODStudioCache.asset
+FMODStudioCache.asset.meta
 
 
 # Unity3D generated meta files
