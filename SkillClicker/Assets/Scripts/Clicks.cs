@@ -10,14 +10,12 @@ public class Clicks : MonoBehaviour {
 
     public Gathering.Gatherable info;
 
+    
 
 
-    // Use this for initialization
-    void Start () {
+   
 	
-	}
 	
-	// Update is called once per frame
 	void Update () {
         aantalClicks.text = "";
         for(int i = 0; i < info.clicks - clicks; i++)
@@ -29,7 +27,7 @@ public class Clicks : MonoBehaviour {
     public void Clicked()
     {
 
-
+        FMODUnity.RuntimeManager.PlayOneShot("event:/"+info.clickSound, transform.position);
         clicks += 1;
         if (clicks >= info.clicks)
         {

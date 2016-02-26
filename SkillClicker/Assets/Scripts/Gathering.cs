@@ -20,9 +20,11 @@ public class Gathering : MonoBehaviour
         public Sprite icon; //What is the image of the icon
         public Sprite image; //What is the image of the item in the gathering screen
 
+        public string clickSound; //What is the source of the sound that you hear when you click
+
         public InventoryItemBase[] loot; //What are the items you can get from this
 
-        public Gatherable(string n, int l, int c, int x, string sk, string rt, int rtl, Sprite ic, Sprite img)
+        public Gatherable(string n, int l, int c, int x, string sk, string rt, int rtl, Sprite ic, Sprite img, string cs, InventoryItemBase[] lt)
         {
             name = n;
             level = l;
@@ -34,6 +36,10 @@ public class Gathering : MonoBehaviour
 
             icon = ic;
             image = img;
+
+            clickSound = cs;
+
+            loot = lt;
         }
 
 
@@ -106,6 +112,7 @@ public class Gathering : MonoBehaviour
                 thisInfo.requiredToolLevel =    Ores[id].requiredToolLevel;
                 thisInfo.icon =                 Ores[id].icon;
                 thisInfo.image =                Ores[id].image;
+                thisInfo.clickSound =           Ores[id].clickSound;
                 thisInfo.loot =                 Ores[id].loot;
                 break;
             case "Tree":
@@ -118,6 +125,7 @@ public class Gathering : MonoBehaviour
                 thisInfo.requiredToolLevel =    Trees[id].requiredToolLevel;
                 thisInfo.icon =                 Trees[id].icon;
                 thisInfo.image =                Trees[id].image;
+                thisInfo.clickSound =           Trees[id].clickSound;
                 thisInfo.loot =                 Trees[id].loot;
                 break;
             case "Fishing":
@@ -130,6 +138,7 @@ public class Gathering : MonoBehaviour
                 thisInfo.requiredToolLevel =    FishingSpots[id].requiredToolLevel;
                 thisInfo.icon =                 FishingSpots[id].icon;
                 thisInfo.image =                FishingSpots[id].image;
+                thisInfo.clickSound =           FishingSpots[id].clickSound;
                 thisInfo.loot =                 FishingSpots[id].loot;
                 break;
             case "GatherSpots":
@@ -142,6 +151,7 @@ public class Gathering : MonoBehaviour
                 thisInfo.requiredToolLevel =    GatherSpots[id].requiredToolLevel;
                 thisInfo.icon =                 GatherSpots[id].icon;
                 thisInfo.image =                GatherSpots[id].image;
+                thisInfo.clickSound =           GatherSpots[id].clickSound;
                 thisInfo.loot =                 GatherSpots[id].loot;
                 break;
         }
