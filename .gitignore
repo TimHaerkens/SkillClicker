@@ -18,8 +18,9 @@ ExportedObj/
 *.booproj
 *.svd
 
-SkillClicker/Assets/Resources/FMODStudioSettings.asset
-SkillClicker/fmod_editor.log
+FMODStudioSettings.asset
+fmod_editor.log
+FMODStudioCache.asset
 
 
 # Unity3D generated meta files
