@@ -43,7 +43,7 @@ public class Areas : MonoBehaviour {
 
     void Awake()
     {
-        currentArea = areas[1];
+        currentArea = areas[0];
     }
 
 
