@@ -12,11 +12,12 @@ public class Clicks : MonoBehaviour {
     public Skills skills;
 
     public GatheringScreen gatheringScreen;
+    public Stats stats;
 
-   
-	
-	
-	void Update () {
+
+
+
+    void Update () {
         aantalClicks.text = "";
         for(int i = 0; i < info.clicks - clicks; i++)
         {
@@ -27,7 +28,8 @@ public class Clicks : MonoBehaviour {
     public void Clicked()
     {
 
-        FMODUnity.RuntimeManager.PlayOneShot("event:/"+info.clickSound, transform.position);
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/"+info.clickSound, transform.position);
+        stats.UpdateStat("stat_timesclicked", PlayerPrefs.GetFloat("stat_timesclicked") + 1);
         clicks += 1;
         if (clicks >= info.clicks)
         {
@@ -78,7 +80,7 @@ public class Clicks : MonoBehaviour {
     {
         Debug.Log(info.loot[0] + " added");
         InventoryManager.AddItem(info.loot[0]);
-        FMODUnity.RuntimeManager.PlayOneShot("event:/succes", transform.position);
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/succes", transform.position);
 
 
     }

@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using Devdog.InventorySystem;
+using System.Collections.Generic;
 
 public class Gathering : MonoBehaviour
 {
@@ -55,8 +56,8 @@ public class Gathering : MonoBehaviour
     public GameObject gatherableIcon;
     public Button gatherableButton;
 
-    //Reference to city information
-    public Areas areas;
+
+    public Player player;
 
     private static Gathering Instance;
 
@@ -80,16 +81,25 @@ public class Gathering : MonoBehaviour
                 Destroy(this.gameObject);
         }
 
-        foreach (Areas.Resource r in areas.currentArea.resources)
-        {
-            Spawn(r.type, r.id);
-            print("spawn shit");
-        }
+        SpawnResources();
        
             
         
 
     }
+
+    //Spawn resources in the current area
+    public void SpawnResources()
+    {
+        foreach (Button b in buttons) Destroy(b.gameObject);
+        buttons.Clear();
+        foreach (Area.Resource r in player.currentArea.GetComponent<Area>().resources)
+        {
+            Spawn(r.type, r.id);
+        }
+    }
+
+    public List<Button> buttons = new List<Button>();
 
     //Spawn a button
     void Spawn(string category, int id)
@@ -97,6 +107,7 @@ public class Gathering : MonoBehaviour
         //GameObject newGatherable = Instantiate(gatherableIcon, gatherableIcon.transform.position, Quaternion.identity) as GameObject;
         Button newButton = Instantiate(gatherableButton, gatherableButton.transform.position, Quaternion.identity) as Button;
         newButton.transform.parent = this.transform;
+        buttons.Add(newButton);
        
         Gatherable thisInfo = newButton.GetComponent<GatherableScript>().myInfo;
 

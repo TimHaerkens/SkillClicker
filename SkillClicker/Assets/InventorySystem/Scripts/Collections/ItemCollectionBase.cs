@@ -1884,6 +1884,25 @@ namespace Devdog.InventorySystem
 
 
         /// <summary>
+        /// Stores all the items to the bank if the bank is open
+        /// </summary>
+        public virtual void DepositAllToBank()
+        {
+            for (uint i = 0; i < items.Length; i++)
+            {
+                if (items[i].item != null)
+                {
+                    OverrideUseMethod(items[i].item);
+                }
+            }
+            // Repaint all UI elements
+            foreach (var item in items)
+            {
+                item.Repaint();
+            }
+        }
+
+        /// <summary>
         /// Sorts the inventory and handles the required repaint.
         /// To change sorting behavior implement the IInventorySorter.
         /// </summary>

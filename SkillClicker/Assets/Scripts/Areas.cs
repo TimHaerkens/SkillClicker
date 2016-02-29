@@ -18,13 +18,14 @@ public class Areas : MonoBehaviour {
 
     }
 
-
     [System.Serializable]
     public class Area
     {
         public string name; //What is the name of the village
 
         public Resource[] resources;
+
+        public Dictionary<string,float> neighbours = new Dictionary<string,float>();
 
         public Area(string n, Resource[] r)
         {
@@ -33,6 +34,8 @@ public class Areas : MonoBehaviour {
         }
 
     }
+
+
 
     public Area[] areas;
 

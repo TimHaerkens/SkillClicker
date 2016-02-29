@@ -27,16 +27,16 @@ public class Skills : MonoBehaviour {
 
         public void LevelUp()
         {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/LevelUp");
+            //FMODUnity.RuntimeManager.PlayOneShot("event:/LevelUp");
             level++;
-            Debug.Log(name + " Level " + level + " achieved!");
+            GameManager.instance.ShowNotification(name + " Level " + level + " achieved!");
 
         }
 
         public void GetXP(float amount)
         {
             xp += amount;
-            if (xp > XPTable[level+1]) LevelUp();
+            if (xp >= XPTable[level+1]) LevelUp();
         }
 
         public float LevelProgress()
