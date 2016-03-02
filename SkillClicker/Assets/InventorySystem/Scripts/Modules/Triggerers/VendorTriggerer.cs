@@ -158,13 +158,28 @@ namespace Devdog.InventorySystem
             triggerer.OnTriggerUnUsed += UnUsed;
         }
 
+        public void OpenShop()
+        {
+            Start();
+            //triggerer.Use();
+            Used(GameObject.Find("Player").GetComponent<InventoryPlayer>());
+        }
+
+        public void CloseShop()
+        {
+            UnUsed(GameObject.Find("Player").GetComponent<InventoryPlayer>());
+        }
+
 
         protected virtual void Used(InventoryPlayer player)
         {
+            Debug.Log("Used is called");
             if (InventoryUIUtility.CanReceiveInput(gameObject) == false)
             {
                 return;
             }
+
+            Debug.Log("Setting items");
 
             // Set items
             vendorUI.Clear();
@@ -186,7 +201,8 @@ namespace Devdog.InventorySystem
 //                }
             }
 
-            vendorUI.currentVendor = this;
+            Debug.Log("Setting currentVendor");
+            vendorUI.currentVendor = this.GetComponent<VendorTriggerer>();
             vendorUI.window.Show();
         }
 

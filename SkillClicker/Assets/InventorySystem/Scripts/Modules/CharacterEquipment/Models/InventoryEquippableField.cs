@@ -44,7 +44,7 @@ namespace Devdog.InventorySystem.Models
 
         public CharacterUI characterCollection
         {
-            get { return GetComponentInParent<CharacterUI>(); }
+            get { return GameObject.Find("Character Tab").GetComponent<CharacterUI>(); }
         }
 
         public InventoryUIItemWrapperBase itemWrapper { get; private set; }

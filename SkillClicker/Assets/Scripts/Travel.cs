@@ -22,6 +22,8 @@ public class Travel : MonoBehaviour {
     public Gathering gathering;
     public GameObject leftFoot;
     public GameObject rightFoot;
+    public Text fromText;
+    public Text toText;
 
     public bool stepToggle = true;
 

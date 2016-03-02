@@ -53,7 +53,7 @@ namespace Devdog.InventorySystem
         }
 
 
-        protected VendorTriggerer _currentVendor;
+        public VendorTriggerer _currentVendor;
         public VendorTriggerer currentVendor
         {
             get
@@ -117,9 +117,9 @@ namespace Devdog.InventorySystem
 
         public override void Start()
         {
+            
             base.Start();
             InstanceOnPlayerChanged(null, InventoryPlayerManager.instance.currentPlayer);
-
             window.OnShow += RepaintWindow;
         }
 
@@ -142,6 +142,7 @@ namespace Devdog.InventorySystem
 
         private void OnPlayerCurrencyChanged(float amountBefore, InventoryCurrencyLookup lookup)
         {
+            Debug.Log("currchanged");
             if (window.isVisible == false)
                 return;
 

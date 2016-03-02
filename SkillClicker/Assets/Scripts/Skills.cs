@@ -5,17 +5,18 @@ public class Skills : MonoBehaviour {
 
     static SkillsInfo skillsInfo;
 
-    static float[] XPTable = new float[9]
+    static float[] XPTable = new float[10]
     {
         0,
         0,
-        5,
-        12,
         25,
         43,
-        75,
-        124,
-        200,
+        73,
+        123,
+        209,
+        605,
+        1025,
+        1744
     };
 
     [System.Serializable]

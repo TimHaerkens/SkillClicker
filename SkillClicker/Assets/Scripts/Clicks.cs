@@ -25,18 +25,33 @@ public class Clicks : MonoBehaviour {
         }
 	}
 
+
+    public ItemCollectionBase inventory;
     public void Clicked()
     {
+        if(inventory.GetEmptySlotsCount()==0)
+        {
+            GameManager.instance.ShowNotification("Inventory is full");
+            return;
+        }
 
         //FMODUnity.RuntimeManager.PlayOneShot("event:/"+info.clickSound, transform.position);
-        stats.UpdateStat("stat_timesclicked", PlayerPrefs.GetFloat("stat_timesclicked") + 1);
-        clicks += 1;
+        Stats.instance.UpdateStat("stat_timesclicked", PlayerPrefs.GetFloat("stat_timesclicked") + 1);
+        clicks += ToolPower();
         if (clicks >= info.clicks)
         {
             Loot();
             GetXP();
             clicks = 0;
         }
+    }
+
+    int ToolPower()
+    {
+        if (GameManager.instance.development) return 2;
+
+
+        return 1;
     }
 
     void GetXP()
@@ -74,12 +89,18 @@ public class Clicks : MonoBehaviour {
 
     }
 
-    
 
+    public GameObject loot;
     void Loot()
     {
         Debug.Log(info.loot[0] + " added");
-        InventoryManager.AddItem(info.loot[0]);
+        GameObject lootSpawn = Instantiate(loot, transform.position, Quaternion.identity) as GameObject;
+        lootSpawn.transform.parent = gatheringScreen.gameObject.transform;
+        lootSpawn.transform.SetAsLastSibling();
+        lootSpawn.transform.localScale = new Vector3(1, 1, 1);
+        lootSpawn.GetComponent<Loot>().loot = info.loot[0];
+        lootSpawn.GetComponent<Loot>().image.sprite = info.loot[0].icon;
+
         //FMODUnity.RuntimeManager.PlayOneShot("event:/succes", transform.position);
 
 

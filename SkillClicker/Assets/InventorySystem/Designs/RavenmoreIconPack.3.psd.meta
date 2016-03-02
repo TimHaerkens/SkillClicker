@@ -45,7 +45,7 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
@@ -54,8 +54,8 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -1
-  maxTextureSize: 2048
+  textureFormat: -3
+  maxTextureSize: 4096
   textureSettings:
     filterMode: -1
     aniso: 16
@@ -65,11 +65,12 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
@@ -85,8 +86,19 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 26, y: 44}
+        - {x: -1, y: 44}
+        - {x: -31, y: 16}
+        - {x: -31, y: -3}
+        - {x: -10, y: -43}
+        - {x: -1, y: -45}
+        - {x: 13, y: -45}
+        - {x: 41, y: -29}
+        - {x: 41, y: -14}
+        - {x: 28, y: 43}
     - name: RavenmoreIconPack.3_1
       rect:
         serializedVersion: 2
@@ -95,8 +107,68 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 19, y: -58}
+        - {x: 20, y: -60}
+        - {x: 26, y: -60}
+        - {x: 26, y: -59}
+        - {x: 23, y: -56}
+        - {x: 21, y: -56}
+      - - {x: -20, y: 53}
+        - {x: -43, y: 36}
+        - {x: -43, y: 1}
+        - {x: -33, y: -8}
+        - {x: -2, y: -32}
+        - {x: 4, y: -30}
+        - {x: 6, y: -24}
+        - {x: 2, y: -15}
+        - {x: 2, y: 0}
+        - {x: 2, y: -2}
+        - {x: 25, y: -49}
+        - {x: 29, y: -52}
+        - {x: 54, y: -52}
+        - {x: 54, y: 53}
+      - - {x: 46, y: -22}
+        - {x: 46, y: -24}
+        - {x: 48, y: -26}
+        - {x: 49, y: -26}
+        - {x: 52, y: -23}
+        - {x: 51, y: -20}
+        - {x: 48, y: -20}
+      - - {x: 38, y: -15}
+        - {x: 41, y: -14}
+        - {x: 41, y: -11}
+        - {x: 38, y: -10}
+        - {x: 36, y: -12}
+      - - {x: -41, y: 6}
+        - {x: -43, y: 4}
+        - {x: -43, y: 1}
+        - {x: -42, y: 0}
+        - {x: -37, y: 0}
+        - {x: -37, y: 5}
+        - {x: -39, y: 6}
+      - - {x: -46, y: 41}
+        - {x: -49, y: 37}
+        - {x: -49, y: 34}
+        - {x: -48, y: 32}
+        - {x: -44, y: 32}
+        - {x: -40, y: 36}
+        - {x: -40, y: 40}
+        - {x: -42, y: 41}
+      - - {x: -41, y: 43}
+        - {x: -41, y: 41}
+        - {x: -39, y: 39}
+        - {x: -34, y: 41}
+        - {x: -34, y: 44}
+        - {x: -36, y: 46}
+        - {x: -38, y: 46}
+      - - {x: 36, y: 43}
+        - {x: 39, y: 44}
+        - {x: 39, y: 47}
+        - {x: 36, y: 48}
+        - {x: 34, y: 46}
     - name: RavenmoreIconPack.3_2
       rect:
         serializedVersion: 2
@@ -105,8 +177,109 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 15, y: -58}
+        - {x: 15, y: -60}
+        - {x: 21, y: -60}
+        - {x: 21, y: -59}
+        - {x: 18, y: -56}
+        - {x: 17, y: -56}
+      - - {x: -48, y: -11}
+        - {x: 1, y: -52}
+        - {x: 48, y: -52}
+        - {x: 48, y: -2}
+        - {x: 38, y: 37}
+        - {x: 7, y: 54}
+        - {x: -21, y: 54}
+        - {x: -48, y: 35}
+      - - {x: -14, y: -41}
+        - {x: -14, y: -42}
+        - {x: -10, y: -46}
+        - {x: -7, y: -45}
+        - {x: -7, y: -42}
+        - {x: -10, y: -39}
+        - {x: -12, y: -39}
+      - - {x: -9, y: -31}
+        - {x: -10, y: -33}
+        - {x: -10, y: -36}
+        - {x: -8, y: -37}
+        - {x: -4, y: -37}
+        - {x: -3, y: -35}
+        - {x: -3, y: -33}
+        - {x: -6, y: -31}
+      - - {x: 49, y: -8}
+        - {x: 42, y: -18}
+        - {x: 42, y: -25}
+        - {x: 44, y: -27}
+        - {x: 49, y: -27}
+        - {x: 53, y: -14}
+        - {x: 53, y: -8}
+      - - {x: 34, y: -5}
+        - {x: 32, y: -10}
+        - {x: 32, y: -14}
+        - {x: 33, y: -15}
+        - {x: 37, y: -15}
+        - {x: 39, y: -10}
+        - {x: 39, y: -6}
+        - {x: 38, y: -5}
+      - - {x: -47, y: 1}
+        - {x: -45, y: -1}
+        - {x: -42, y: 0}
+        - {x: -42, y: 3}
+        - {x: -44, y: 5}
+        - {x: -47, y: 4}
+      - - {x: 31, y: 27}
+        - {x: 29, y: 25}
+        - {x: 32, y: 18}
+        - {x: 35, y: 18}
+        - {x: 37, y: 19}
+        - {x: 37, y: 22}
+        - {x: 35, y: 27}
+      - - {x: -50, y: 36}
+        - {x: -48, y: 34}
+        - {x: -45, y: 35}
+        - {x: -45, y: 38}
+        - {x: -47, y: 40}
+        - {x: -50, y: 39}
+      - - {x: 34, y: 42}
+        - {x: 34, y: 40}
+        - {x: 39, y: 35}
+        - {x: 41, y: 35}
+        - {x: 43, y: 36}
+        - {x: 43, y: 38}
+        - {x: 37, y: 44}
+        - {x: 35, y: 44}
+      - - {x: -46, y: 43}
+        - {x: -46, y: 41}
+        - {x: -45, y: 39}
+        - {x: -42, y: 39}
+        - {x: -39, y: 42}
+        - {x: -40, y: 45}
+        - {x: -43, y: 45}
+      - - {x: 31, y: 48}
+        - {x: 29, y: 46}
+        - {x: 29, y: 44}
+        - {x: 31, y: 42}
+        - {x: 33, y: 42}
+        - {x: 35, y: 44}
+        - {x: 35, y: 45}
+        - {x: 32, y: 48}
+      - - {x: -23, y: 60}
+        - {x: -40, y: 49}
+        - {x: -40, y: 43}
+        - {x: -34, y: 43}
+        - {x: -29, y: 44}
+        - {x: 1, y: 56}
+        - {x: 1, y: 60}
+      - - {x: 6, y: 59}
+        - {x: 6, y: 53}
+        - {x: 7, y: 49}
+        - {x: 19, y: 47}
+        - {x: 26, y: 47}
+        - {x: 26, y: 54}
+        - {x: 15, y: 59}
     - name: RavenmoreIconPack.3_3
       rect:
         serializedVersion: 2
@@ -115,8 +288,73 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 11, y: 53}
+        - {x: 11, y: 51}
+        - {x: 5, y: 53}
+        - {x: -16, y: 53}
+        - {x: -37, y: 32}
+        - {x: -37, y: -28}
+        - {x: -4, y: -55}
+        - {x: 49, y: -55}
+        - {x: 49, y: 53}
+      - - {x: -9, y: -47}
+        - {x: -9, y: -48}
+        - {x: -5, y: -52}
+        - {x: -2, y: -51}
+        - {x: -2, y: -48}
+        - {x: -5, y: -45}
+        - {x: -7, y: -45}
+      - - {x: 53, y: -14}
+        - {x: 46, y: -22}
+        - {x: 44, y: -27}
+        - {x: 44, y: -30}
+        - {x: 45, y: -31}
+        - {x: 50, y: -31}
+        - {x: 57, y: -30}
+        - {x: 58, y: -26}
+        - {x: 58, y: -14}
+      - - {x: -4, y: -12}
+        - {x: -2, y: -14}
+        - {x: 1, y: -13}
+        - {x: 1, y: -10}
+        - {x: -1, y: -8}
+        - {x: -4, y: -9}
+      - - {x: -37, y: 4}
+        - {x: -36, y: 1}
+        - {x: -33, y: 1}
+        - {x: -31, y: 3}
+        - {x: -32, y: 6}
+        - {x: -35, y: 6}
+      - - {x: -45, y: 30}
+        - {x: -43, y: 28}
+        - {x: -40, y: 29}
+        - {x: -40, y: 32}
+        - {x: -42, y: 34}
+        - {x: -45, y: 33}
+      - - {x: -38, y: 39}
+        - {x: -41, y: 36}
+        - {x: -40, y: 33}
+        - {x: -36, y: 33}
+        - {x: -34, y: 34}
+        - {x: -34, y: 37}
+        - {x: -35, y: 39}
+      - - {x: -33, y: 37}
+        - {x: -30, y: 38}
+        - {x: -30, y: 41}
+        - {x: -33, y: 42}
+        - {x: -35, y: 40}
+      - - {x: -9, y: 56}
+        - {x: -29, y: 50}
+        - {x: -29, y: 42}
+        - {x: -28, y: 41}
+        - {x: -25, y: 41}
+        - {x: 6, y: 49}
+        - {x: 7, y: 51}
+        - {x: 7, y: 55}
+        - {x: 6, y: 56}
     - name: RavenmoreIconPack.3_4
       rect:
         serializedVersion: 2
@@ -125,8 +363,19 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12, y: 42}
+        - {x: -19, y: 41}
+        - {x: -40, y: 23}
+        - {x: -40, y: 15}
+        - {x: -29, y: -40}
+        - {x: -1, y: -51}
+        - {x: 37, y: -51}
+        - {x: 40, y: -46}
+        - {x: 40, y: 6}
+        - {x: 31, y: 42}
     - name: RavenmoreIconPack.3_5
       rect:
         serializedVersion: 2
@@ -135,8 +384,22 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 6, y: -53}
+        - {x: 5, y: -56}
+        - {x: 9, y: -60}
+        - {x: 21, y: -60}
+        - {x: 21, y: -58}
+        - {x: 15, y: -53}
+      - - {x: -18, y: 32}
+        - {x: -25, y: 25}
+        - {x: -25, y: -23}
+        - {x: -22, y: -29}
+        - {x: 35, y: -29}
+        - {x: 35, y: 4}
+        - {x: 0, y: 32}
     - name: RavenmoreIconPack.3_6
       rect:
         serializedVersion: 2
@@ -145,8 +408,21 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -33, y: 36}
+        - {x: -33, y: -37}
+        - {x: -26, y: -47}
+        - {x: 52, y: -47}
+        - {x: 52, y: -18}
+        - {x: -2, y: 36}
+      - - {x: -39, y: 15}
+        - {x: -38, y: 12}
+        - {x: -35, y: 12}
+        - {x: -33, y: 14}
+        - {x: -34, y: 17}
+        - {x: -37, y: 17}
     - name: RavenmoreIconPack.3_7
       rect:
         serializedVersion: 2
@@ -155,8 +431,26 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 22, y: 45}
+        - {x: -5, y: 45}
+        - {x: -33, y: 35}
+        - {x: -37, y: 34}
+        - {x: -37, y: -33}
+        - {x: -18, y: -38}
+        - {x: 26, y: -38}
+        - {x: 39, y: -29}
+        - {x: 39, y: 5}
+        - {x: 27, y: 43}
+      - - {x: 18, y: 60}
+        - {x: 18, y: 57}
+        - {x: 20, y: 55}
+        - {x: 22, y: 55}
+        - {x: 24, y: 57}
+        - {x: 24, y: 59}
+        - {x: 23, y: 60}
     - name: RavenmoreIconPack.3_8
       rect:
         serializedVersion: 2
@@ -165,8 +459,47 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 27, y: -11}
+        - {x: 25, y: -13}
+        - {x: 26, y: -11}
+        - {x: 31, y: -8}
+        - {x: 37, y: 19}
+        - {x: 7, y: 49}
+        - {x: -42, y: 49}
+        - {x: -58, y: 23}
+        - {x: -58, y: -34}
+        - {x: 3, y: -53}
+        - {x: 43, y: -53}
+        - {x: 47, y: -49}
+        - {x: 48, y: -47}
+        - {x: 48, y: -34}
+        - {x: 30, y: -10}
+      - - {x: 39, y: 8}
+        - {x: 39, y: 3}
+        - {x: 44, y: 3}
+        - {x: 45, y: 4}
+        - {x: 45, y: 7}
+        - {x: 43, y: 9}
+        - {x: 41, y: 9}
+      - - {x: -48, y: 30}
+        - {x: -51, y: 29}
+        - {x: -56, y: 24}
+        - {x: -56, y: 19}
+        - {x: -55, y: 18}
+        - {x: -52, y: 18}
+        - {x: -46, y: 25}
+        - {x: -46, y: 28}
+      - - {x: -33, y: 45}
+        - {x: -41, y: 42}
+        - {x: -47, y: 32}
+        - {x: -47, y: 28}
+        - {x: -43, y: 28}
+        - {x: -30, y: 32}
+        - {x: -24, y: 41}
+        - {x: -24, y: 45}
     - name: RavenmoreIconPack.3_9
       rect:
         serializedVersion: 2
@@ -175,8 +508,43 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 29, y: -15}
+        - {x: 26, y: -16}
+        - {x: 14, y: -12}
+        - {x: 29, y: -15}
+        - {x: 32, y: -12}
+        - {x: 38, y: 15}
+        - {x: 14, y: 44}
+        - {x: -26, y: 44}
+        - {x: -57, y: 24}
+        - {x: -49, y: 20}
+        - {x: -57, y: 2}
+        - {x: -57, y: -24}
+        - {x: -12, y: -53}
+        - {x: 2, y: -42}
+        - {x: 5, y: -39}
+        - {x: 35, y: -58}
+        - {x: 41, y: -58}
+        - {x: 49, y: -53}
+        - {x: 50, y: -50}
+        - {x: 50, y: -38}
+        - {x: 33, y: -16}
+      - - {x: 40, y: 3}
+        - {x: 40, y: 1}
+        - {x: 42, y: -1}
+        - {x: 43, y: -1}
+        - {x: 46, y: 2}
+        - {x: 45, y: 5}
+        - {x: 42, y: 5}
+      - - {x: -55, y: 17}
+        - {x: -54, y: 14}
+        - {x: -51, y: 14}
+        - {x: -49, y: 15}
+        - {x: -48, y: 19}
+        - {x: -51, y: 21}
     - name: RavenmoreIconPack.3_10
       rect:
         serializedVersion: 2
@@ -185,8 +553,27 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 36, y: 48}
+        - {x: 33, y: 56}
+        - {x: -10, y: 56}
+        - {x: -16, y: 54}
+        - {x: -43, y: 42}
+        - {x: -43, y: 33}
+        - {x: -39, y: -27}
+        - {x: -32, y: -46}
+        - {x: -16, y: -46}
+        - {x: 39, y: -24}
+        - {x: 39, y: 1}
+      - - {x: -1, y: -8}
+        - {x: -1, y: -10}
+        - {x: 1, y: -12}
+        - {x: 2, y: -12}
+        - {x: 5, y: -9}
+        - {x: 4, y: -6}
+        - {x: 1, y: -6}
     - name: RavenmoreIconPack.3_11
       rect:
         serializedVersion: 2
@@ -195,8 +582,18 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 6, y: 38}
+        - {x: -37, y: 38}
+        - {x: -37, y: 11}
+        - {x: -35, y: 8}
+        - {x: -4, y: -39}
+        - {x: 0, y: -40}
+        - {x: 37, y: -40}
+        - {x: 40, y: -31}
+        - {x: 40, y: 12}
     - name: RavenmoreIconPack.3_12
       rect:
         serializedVersion: 2
@@ -205,8 +602,25 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 8, y: 43}
+        - {x: 5, y: 41}
+        - {x: -2, y: 34}
+        - {x: -1, y: 31}
+        - {x: 6, y: 31}
+        - {x: 6, y: 18}
+        - {x: -15, y: 39}
+        - {x: -25, y: 43}
+        - {x: -34, y: 43}
+        - {x: -40, y: 30}
+        - {x: -40, y: -41}
+        - {x: 33, y: -41}
+        - {x: 40, y: -39}
+        - {x: 50, y: -14}
+        - {x: 50, y: 35}
+        - {x: 33, y: 43}
     - name: RavenmoreIconPack.3_13
       rect:
         serializedVersion: 2
@@ -215,8 +629,18 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -42, y: 53}
+        - {x: -42, y: 17}
+        - {x: -22, y: -32}
+        - {x: 2, y: -41}
+        - {x: 46, y: -41}
+        - {x: 46, y: -9}
+        - {x: 40, y: 16}
+        - {x: -8, y: 48}
+        - {x: -23, y: 53}
     - name: RavenmoreIconPack.3_14
       rect:
         serializedVersion: 2
@@ -225,8 +649,30 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -4, y: 25}
+        - {x: -20, y: 25}
+        - {x: -20, y: 2}
+        - {x: -11, y: -33}
+        - {x: 5, y: -37}
+        - {x: 29, y: -37}
+        - {x: 32, y: -33}
+        - {x: 32, y: 1}
+        - {x: 30, y: 12}
+      - - {x: -14, y: -20}
+        - {x: -18, y: -22}
+        - {x: -18, y: -27}
+        - {x: -16, y: -28}
+        - {x: -11, y: -28}
+        - {x: -10, y: -25}
+        - {x: -10, y: -20}
+      - - {x: -17, y: 43}
+        - {x: -14, y: 44}
+        - {x: -14, y: 47}
+        - {x: -17, y: 48}
+        - {x: -19, y: 46}
     - name: RavenmoreIconPack.3_15
       rect:
         serializedVersion: 2
@@ -235,8 +681,18 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -11, y: 39}
+        - {x: -28, y: 25}
+        - {x: -28, y: -10}
+        - {x: -7, y: -36}
+        - {x: 8, y: -39}
+        - {x: 40, y: -39}
+        - {x: 46, y: -26}
+        - {x: 46, y: 24}
+        - {x: 34, y: 39}
     - name: RavenmoreIconPack.3_16
       rect:
         serializedVersion: 2
@@ -245,8 +701,56 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -43, y: -58}
+        - {x: -42, y: -60}
+        - {x: -38, y: -60}
+        - {x: -37, y: -59}
+        - {x: -38, y: -56}
+        - {x: -41, y: -56}
+      - - {x: -25, y: -58}
+        - {x: -24, y: -60}
+        - {x: -18, y: -60}
+        - {x: -17, y: -59}
+        - {x: -18, y: -56}
+        - {x: -23, y: -56}
+      - - {x: 25, y: -49}
+        - {x: 22, y: -52}
+        - {x: 23, y: -55}
+        - {x: 27, y: -55}
+        - {x: 29, y: -53}
+        - {x: 29, y: -51}
+        - {x: 27, y: -49}
+      - - {x: -7, y: 31}
+        - {x: -22, y: 23}
+        - {x: -22, y: -21}
+        - {x: -14, y: -49}
+        - {x: 36, y: -49}
+        - {x: 36, y: 31}
+      - - {x: 56, y: 0}
+        - {x: 56, y: -2}
+        - {x: 58, y: -4}
+        - {x: 60, y: -4}
+        - {x: 60, y: 2}
+        - {x: 58, y: 2}
+      - - {x: -57, y: 9}
+        - {x: -57, y: 4}
+        - {x: -56, y: 3}
+        - {x: -49, y: 3}
+        - {x: -48, y: 4}
+        - {x: -48, y: 9}
+      - - {x: 29, y: 30}
+        - {x: 32, y: 31}
+        - {x: 32, y: 34}
+        - {x: 29, y: 35}
+        - {x: 27, y: 33}
+      - - {x: 9, y: 41}
+        - {x: 12, y: 42}
+        - {x: 12, y: 45}
+        - {x: 9, y: 46}
+        - {x: 7, y: 44}
     - name: RavenmoreIconPack.3_17
       rect:
         serializedVersion: 2
@@ -255,8 +759,22 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 6, y: -32}
+        - {x: 6, y: -37}
+        - {x: 11, y: -37}
+        - {x: 13, y: -36}
+        - {x: 13, y: -32}
+        - {x: 11, y: -30}
+        - {x: 9, y: -30}
+      - - {x: -21, y: 39}
+        - {x: -21, y: -33}
+        - {x: 38, y: -33}
+        - {x: 40, y: -20}
+        - {x: 40, y: 30}
+        - {x: 27, y: 39}
     - name: RavenmoreIconPack.3_18
       rect:
         serializedVersion: 2
@@ -265,8 +783,19 @@ TextureImporter:
         width: 80
         height: 80
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 4, y: 29}
+        - {x: -24, y: 29}
+        - {x: -29, y: 22}
+        - {x: -29, y: 4}
+        - {x: -14, y: -27}
+        - {x: 2, y: -33}
+        - {x: 29, y: -33}
+        - {x: 40, y: -25}
+        - {x: 40, y: 6}
+        - {x: 37, y: 19}
     - name: RavenmoreIconPack.3_19
       rect:
         serializedVersion: 2
@@ -275,8 +804,17 @@ TextureImporter:
         width: 60
         height: 60
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -10, y: 25}
+        - {x: -25, y: 7}
+        - {x: -25, y: -12}
+        - {x: -20, y: -21}
+        - {x: 21, y: -21}
+        - {x: 25, y: -12}
+        - {x: 25, y: 14}
+        - {x: 21, y: 25}
     - name: RavenmoreIconPack.3_20
       rect:
         serializedVersion: 2
@@ -285,8 +823,17 @@ TextureImporter:
         width: 60
         height: 60
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -16, y: 25}
+        - {x: -23, y: 8}
+        - {x: -23, y: -19}
+        - {x: -20, y: -21}
+        - {x: 23, y: -21}
+        - {x: 27, y: -16}
+        - {x: 27, y: 18}
+        - {x: 23, y: 25}
     - name: RavenmoreIconPack.3_21
       rect:
         serializedVersion: 2
@@ -295,8 +842,17 @@ TextureImporter:
         width: 60
         height: 60
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8, y: 24}
+        - {x: -24, y: 6}
+        - {x: -24, y: -14}
+        - {x: -20, y: -22}
+        - {x: 25, y: -22}
+        - {x: 26, y: -13}
+        - {x: 26, y: 19}
+        - {x: 18, y: 24}
     - name: RavenmoreIconPack.3_22
       rect:
         serializedVersion: 2
@@ -305,8 +861,20 @@ TextureImporter:
         width: 80
         height: 80
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 10, y: 20}
+        - {x: 1, y: 28}
+        - {x: -18, y: 38}
+        - {x: -30, y: 38}
+        - {x: -30, y: -3}
+        - {x: -12, y: -35}
+        - {x: 20, y: -35}
+        - {x: 25, y: -30}
+        - {x: 31, y: -23}
+        - {x: 32, y: -15}
+        - {x: 32, y: -5}
     - name: RavenmoreIconPack.3_23
       rect:
         serializedVersion: 2
@@ -315,8 +883,18 @@ TextureImporter:
         width: 80
         height: 80
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20, y: 38}
+        - {x: -25, y: 38}
+        - {x: -31, y: 30}
+        - {x: -31, y: 0}
+        - {x: 2, y: -35}
+        - {x: 20, y: -35}
+        - {x: 31, y: -25}
+        - {x: 31, y: -3}
+        - {x: 13, y: 24}
     - name: RavenmoreIconPack.3_24
       rect:
         serializedVersion: 2
@@ -325,8 +903,16 @@ TextureImporter:
         width: 80
         height: 80
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -31, y: 38}
+        - {x: -31, y: 1}
+        - {x: -12, y: -35}
+        - {x: 16, y: -35}
+        - {x: 31, y: -27}
+        - {x: 31, y: 12}
+        - {x: -5, y: 38}
     - name: RavenmoreIconPack.3_25
       rect:
         serializedVersion: 2
@@ -335,8 +921,23 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -28, y: -60}
+        - {x: -20, y: -60}
+        - {x: -21, y: -57}
+        - {x: -25, y: -56}
+        - {x: -28, y: -59}
+      - - {x: -6, y: 46}
+        - {x: -42, y: 22}
+        - {x: -42, y: -12}
+        - {x: -40, y: -27}
+        - {x: -22, y: -49}
+        - {x: 8, y: -49}
+        - {x: 38, y: -33}
+        - {x: 38, y: -3}
+        - {x: 23, y: 46}
     - name: RavenmoreIconPack.3_26
       rect:
         serializedVersion: 2
@@ -345,8 +946,18 @@ TextureImporter:
         width: 80
         height: 80
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -1, y: 29}
+        - {x: -20, y: 29}
+        - {x: -29, y: 22}
+        - {x: -29, y: 1}
+        - {x: -7, y: -33}
+        - {x: 22, y: -33}
+        - {x: 32, y: -29}
+        - {x: 32, y: 9}
+        - {x: 23, y: 15}
     - name: RavenmoreIconPack.3_27
       rect:
         serializedVersion: 2
@@ -355,8 +966,20 @@ TextureImporter:
         width: 80
         height: 80
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 4, y: 29}
+        - {x: -24, y: 29}
+        - {x: -29, y: 22}
+        - {x: -29, y: 4}
+        - {x: -14, y: -27}
+        - {x: 2, y: -33}
+        - {x: 29, y: -33}
+        - {x: 40, y: -25}
+        - {x: 40, y: 6}
+        - {x: 37, y: 19}
+    outline: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

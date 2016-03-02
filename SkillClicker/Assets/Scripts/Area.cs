@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Devdog.InventorySystem.UI;
+using Devdog.InventorySystem;
 
 public class Area : MonoBehaviour {
 
@@ -35,9 +36,13 @@ public class Area : MonoBehaviour {
         }
     }
 
+   
+
     public string name; //What is the name of the village
     public Resource[] resources; //What resources does this village have
     public Neighbour[] neighbours; //What areas can I go to from here?
+    public GameObject[] enemies; //What enemies are in this area
+    public NPC[] npcs; //What npcs are in this area
 
     //Reference
     public Player player;
@@ -53,9 +58,12 @@ public class Area : MonoBehaviour {
         {
             map.MovePawn(this.gameObject);
         }
+
+        InventoryManager.AddCurrency(50, 2); //If cash is 50, get between 45 and 55 cash
+
     }
 
-    
+
 
     public void Travel()
     {
@@ -90,6 +98,8 @@ public class Area : MonoBehaviour {
             TravelTab.GetComponent<Travel>().travelDistance = distance;
             TravelTab.GetComponent<Travel>().stepsLeft = distance;
             TravelTab.GetComponent<Travel>().stepsCounter.text = distance.ToString();
+            TravelTab.GetComponent<Travel>().fromText.text = from.name;
+            TravelTab.GetComponent<Travel>().toText.text = to.name;
 
         }
 

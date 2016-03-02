@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
-    
+    public bool development = false;
 
     private static GameManager Instance;
 

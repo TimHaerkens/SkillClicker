@@ -5,12 +5,30 @@ using System.Collections.Generic;
 
 public class Stats : MonoBehaviour {
 
-    
+    private static Stats Instance;
+    public static Stats instance
+    {
+        get
+        {
+            if (Instance == null)
+                Instance = GameObject.FindObjectOfType<Stats>();
+            return Instance;
+        }
+    }
 
     public Text[] texts;
     Dictionary<string, Text> statTexts = new Dictionary<string, Text>();
     void Awake()
     {
+
+        if (Instance == null)
+            Instance = this;
+        else
+        {
+            if (this != Instance)
+                Destroy(this.gameObject);
+        }
+
         statTexts.Add("stat_timesclicked", texts[0]);
         statTexts.Add("stat_secondswasted", texts[1]);
         statTexts.Add("stat_moneyearned", texts[2]);

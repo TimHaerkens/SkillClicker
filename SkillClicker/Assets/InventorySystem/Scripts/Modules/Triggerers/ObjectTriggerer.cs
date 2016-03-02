@@ -133,10 +133,15 @@ namespace Devdog.InventorySystem
         protected override void Start()
         {
             base.Start();
-
+            
             isActive = false;
             animator = GetComponent<Animator>();
             objectInfo = GetComponent<SelectableObjectInfo>();
+
+            if (toggleWhenTriggered)
+                Toggle();
+            else
+                Use();
         }
 
         private void WindowOnHide()
@@ -165,7 +170,6 @@ namespace Devdog.InventorySystem
         {
             if (enabled == false)
                 return;
-
             if (triggerMouseClick && InventoryUIUtility.isHoveringUIElement == false)
             {
                 if (toggleWhenTriggered)

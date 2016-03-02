@@ -115,6 +115,8 @@ namespace Devdog.InventorySystem
         /// <param name="equipSlot"></param>
         public virtual void NotifyItemEquipped(InventoryEquippableField equipSlot, uint amountEquipped)
         {
+            Debug.Log("Komt ie");
+            Debug.Log(equipSlot);
             equippedToPlayer = equipSlot.characterCollection.player;
             Assert.IsNotNull(equippedToPlayer, "CharacterUI's player reference not set! Forgot to assign to player?");
 

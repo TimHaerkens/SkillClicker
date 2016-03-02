@@ -120,7 +120,6 @@ public class Gathering : MonoBehaviour
                 thisInfo.xp =                   Ores[id].xp;
                 thisInfo.skill =                Ores[id].skill;
                 thisInfo.requiredTool =         Ores[id].requiredTool;
-                thisInfo.requiredToolLevel =    Ores[id].requiredToolLevel;
                 thisInfo.icon =                 Ores[id].icon;
                 thisInfo.image =                Ores[id].image;
                 thisInfo.clickSound =           Ores[id].clickSound;
@@ -133,7 +132,6 @@ public class Gathering : MonoBehaviour
                 thisInfo.xp =                   Trees[id].xp;
                 thisInfo.skill =                Trees[id].skill;
                 thisInfo.requiredTool =         Trees[id].requiredTool;
-                thisInfo.requiredToolLevel =    Trees[id].requiredToolLevel;
                 thisInfo.icon =                 Trees[id].icon;
                 thisInfo.image =                Trees[id].image;
                 thisInfo.clickSound =           Trees[id].clickSound;
@@ -146,7 +144,6 @@ public class Gathering : MonoBehaviour
                 thisInfo.xp =                   FishingSpots[id].xp;
                 thisInfo.skill =                FishingSpots[id].skill;
                 thisInfo.requiredTool =         FishingSpots[id].requiredTool;
-                thisInfo.requiredToolLevel =    FishingSpots[id].requiredToolLevel;
                 thisInfo.icon =                 FishingSpots[id].icon;
                 thisInfo.image =                FishingSpots[id].image;
                 thisInfo.clickSound =           FishingSpots[id].clickSound;
@@ -159,7 +156,6 @@ public class Gathering : MonoBehaviour
                 thisInfo.xp =                   GatherSpots[id].xp;
                 thisInfo.skill =                GatherSpots[id].skill;
                 thisInfo.requiredTool =         GatherSpots[id].requiredTool;
-                thisInfo.requiredToolLevel =    GatherSpots[id].requiredToolLevel;
                 thisInfo.icon =                 GatherSpots[id].icon;
                 thisInfo.image =                GatherSpots[id].image;
                 thisInfo.clickSound =           GatherSpots[id].clickSound;

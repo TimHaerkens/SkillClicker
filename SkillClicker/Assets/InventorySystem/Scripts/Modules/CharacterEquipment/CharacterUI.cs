@@ -93,7 +93,9 @@ namespace Devdog.InventorySystem
 
         public override void Awake()
         {
+            Debug.Log("equipdinges aangemaakt1");
             base.Awake();
+            Debug.Log("equipdinges aangemaakt2");
             equipSlotFields = new InventoryEquippableField[items.Length];
             for (int i = 0; i < items.Length; i++)
             {
