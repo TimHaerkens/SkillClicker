@@ -29,6 +29,8 @@ public class GatherableScript : MonoBehaviour {
         GatherTab.Show();
         GatherTab.GetComponent<GatheringScreen>().info = myInfo;
         GatherTab.GetComponent<GatheringScreen>().SetClickable();
+        GatherTab.GetComponent<GatheringScreen>().clickable.GetComponent<Clicks>().UpdateAmount();
+
 
 
 

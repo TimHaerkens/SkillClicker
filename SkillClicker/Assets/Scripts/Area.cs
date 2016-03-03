@@ -19,6 +19,20 @@ public class Area : MonoBehaviour {
         }
 
     }
+
+    [System.Serializable]
+    public class Recipe
+    {
+        public string type;
+        public int id;
+
+        public Recipe(string t, int i)
+        {
+            type = t;
+            id = i;
+        }
+
+    }
     [System.Serializable]
     public class Neighbour
     {
@@ -40,6 +54,7 @@ public class Area : MonoBehaviour {
 
     public string name; //What is the name of the village
     public Resource[] resources; //What resources does this village have
+    public Resource[] recipes; //What recipes does this village have
     public Neighbour[] neighbours; //What areas can I go to from here?
     public GameObject[] enemies; //What enemies are in this area
     public NPC[] npcs; //What npcs are in this area

@@ -11,12 +11,14 @@ public class Gathering : MonoBehaviour
     public class Gatherable
     {
         public string name;//What is this ore called
-        public int level; //What level is this ore
+        public int level; //What level is this gatherable
         public int clicks; //How many clicks to get loot
         public int xp; //How many xp do you get for mining this ore
         public string skill; //What skill am I training this for
         public string requiredTool; //What sort of tool do you need to mine this ore
         public int requiredToolLevel; //What is the required minimum level of the tool to mine this
+
+        public InventoryItemBase[] ingredients; //What do I need to make this
 
         public Sprite icon; //What is the image of the icon
         public Sprite image; //What is the image of the item in the gathering screen
@@ -25,7 +27,7 @@ public class Gathering : MonoBehaviour
 
         public InventoryItemBase[] loot; //What are the items you can get from this
 
-        public Gatherable(string n, int l, int c, int x, string sk, string rt, int rtl, Sprite ic, Sprite img, string cs, InventoryItemBase[] lt)
+        public Gatherable(string n, int l, int c, int x, string sk, string rt, int rtl, InventoryItemBase[] ingr, Sprite ic, Sprite img, string cs, InventoryItemBase[] lt)
         {
             name = n;
             level = l;
@@ -34,6 +36,8 @@ public class Gathering : MonoBehaviour
             skill = sk;
             requiredTool = rt;
             requiredToolLevel = rtl;
+
+            ingredients = ingr;
 
             icon = ic;
             image = img;
@@ -50,6 +54,7 @@ public class Gathering : MonoBehaviour
     public Gatherable[] Trees;
     public Gatherable[] FishingSpots;
     public Gatherable[] GatherSpots;
+    public Gatherable[] Recipes;
 
 
 
@@ -82,34 +87,55 @@ public class Gathering : MonoBehaviour
         }
 
         SpawnResources();
-       
-            
-        
+        SpawnRecipes();
+
+
+
 
     }
 
-    //Spawn resources in the current area
-    public void SpawnResources()
+//Spawn resources in the current area
+public void SpawnResources()
     {
-        foreach (Button b in buttons) Destroy(b.gameObject);
-        buttons.Clear();
+        foreach (Button b in resourcebuttons) Destroy(b.gameObject);
+        resourcebuttons.Clear();
         foreach (Area.Resource r in player.currentArea.GetComponent<Area>().resources)
         {
-            Spawn(r.type, r.id);
+            Spawn(r.type, r.id, "resource");
         }
     }
 
-    public List<Button> buttons = new List<Button>();
+    //Spawn recipes in the current area
+    public void SpawnRecipes()
+    {
+        foreach (Button b in recipebuttons) Destroy(b.gameObject);
+        recipebuttons.Clear();
+        foreach (Area.Resource r in player.currentArea.GetComponent<Area>().recipes)
+        {
+            Spawn(r.type, r.id, "recipe");
+        }
+    }
+
+    public List<Button> resourcebuttons = new List<Button>();
+    public List<Button> recipebuttons = new List<Button>();
 
     //Spawn a button
-    void Spawn(string category, int id)
+    void Spawn(string category, int id, string type)
     {
         //GameObject newGatherable = Instantiate(gatherableIcon, gatherableIcon.transform.position, Quaternion.identity) as GameObject;
         Button newButton = Instantiate(gatherableButton, gatherableButton.transform.position, Quaternion.identity) as Button;
-        newButton.transform.parent = this.transform;
-        buttons.Add(newButton);
-       
-        Gatherable thisInfo = newButton.GetComponent<GatherableScript>().myInfo;
+        if (type == "resource")
+        {
+            resourcebuttons.Add(newButton);
+            newButton.transform.parent = GameObject.Find("Training Tab").transform.FindChild("Gatherables").transform;
+        }
+        if (type == "recipe")
+        {
+            newButton.transform.parent = GameObject.Find("Kitchen Tab").transform.FindChild("Recipes").transform;
+            recipebuttons.Add(newButton);
+        }
+
+            Gatherable thisInfo = newButton.GetComponent<GatherableScript>().myInfo;
 
         switch (category)
         {
@@ -149,7 +175,7 @@ public class Gathering : MonoBehaviour
                 thisInfo.clickSound =           FishingSpots[id].clickSound;
                 thisInfo.loot =                 FishingSpots[id].loot;
                 break;
-            case "GatherSpots":
+            case "GatherSpot":
                 thisInfo.name =                 GatherSpots[id].name;
                 thisInfo.level =                GatherSpots[id].level;
                 thisInfo.clicks =               GatherSpots[id].clicks;
@@ -160,6 +186,19 @@ public class Gathering : MonoBehaviour
                 thisInfo.image =                GatherSpots[id].image;
                 thisInfo.clickSound =           GatherSpots[id].clickSound;
                 thisInfo.loot =                 GatherSpots[id].loot;
+                break;
+            case "Recipe":
+                thisInfo.name =                 Recipes[id].name;
+                thisInfo.level =                Recipes[id].level;
+                thisInfo.clicks =               Recipes[id].clicks;
+                thisInfo.xp =                   Recipes[id].xp;
+                thisInfo.skill =                Recipes[id].skill;
+                thisInfo.requiredTool =         Recipes[id].requiredTool;
+                thisInfo.ingredients =          Recipes[id].ingredients;
+                thisInfo.icon =                 Recipes[id].icon;
+                thisInfo.image =                Recipes[id].image;
+                thisInfo.clickSound =           Recipes[id].clickSound;
+                thisInfo.loot =                 Recipes[id].loot;
                 break;
         }
 

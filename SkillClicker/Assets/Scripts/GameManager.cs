@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using Devdog.InventorySystem;
 
 public class GameManager : MonoBehaviour {
 
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour {
             if (this != Instance)
                 Destroy(this.gameObject);
         }
+
+        
 
     }
 

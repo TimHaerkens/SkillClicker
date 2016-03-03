@@ -29,6 +29,10 @@ public class Travel : MonoBehaviour {
 
     //Resources
 
+    void Awake()
+    {
+        gathering = GameManager.instance.GetComponent<Gathering>();
+    }
 
     public void Step()
     {

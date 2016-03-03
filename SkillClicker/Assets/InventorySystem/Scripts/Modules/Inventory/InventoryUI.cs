@@ -162,7 +162,7 @@ namespace Devdog.InventorySystem
 
             if (InventoryManager.instance.bank != null)
             {
-                if (InventoryManager.instance.bank.window.isVisible)
+                if (InventoryManager.instance.bank.window.isActiveAndEnabled)
                 {
                     basic.Add(new InventoryItemUsability("Store", (item) =>
                     {
@@ -173,7 +173,7 @@ namespace Devdog.InventorySystem
 
             if (InventoryManager.instance.vendor != null)
             {
-                if (InventoryManager.instance.vendor.window.isVisible)
+                if (InventoryManager.instance.vendor.window.isActiveAndEnabled)
                 {
                     basic.Add(new InventoryItemUsability("Sell", (item) =>
                     {
@@ -193,8 +193,10 @@ namespace Devdog.InventorySystem
 
             if(useItemMoveToBank)
             {
-                if (InventoryManager.instance.bank != null && InventoryManager.instance.bank.window.isVisible)
+                if (InventoryManager.instance.bank != null && InventoryManager.instance.bank.window.isActiveAndEnabled)
                 {
+                    Debug.Log("Bank is visible");
+
                     if (item.isStorable)
                     {
                         InventoryManager.instance.bank.AddItemAndRemove(item);
@@ -210,7 +212,7 @@ namespace Devdog.InventorySystem
 
             if (useItemSell)
             {
-                if (InventoryManager.instance.vendor != null && InventoryManager.instance.vendor.window.isVisible)
+                if (InventoryManager.instance.vendor != null && InventoryManager.instance.vendor.window.isActiveAndEnabled)
                 {
                     InventoryManager.instance.vendor.currentVendor.SellItemToVendor(item);
                     return true;

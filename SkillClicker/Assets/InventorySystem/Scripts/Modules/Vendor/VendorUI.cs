@@ -142,7 +142,6 @@ namespace Devdog.InventorySystem
 
         private void OnPlayerCurrencyChanged(float amountBefore, InventoryCurrencyLookup lookup)
         {
-            Debug.Log("currchanged");
             if (window.isVisible == false)
                 return;
 

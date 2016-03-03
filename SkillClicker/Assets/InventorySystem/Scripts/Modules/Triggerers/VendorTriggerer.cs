@@ -173,13 +173,11 @@ namespace Devdog.InventorySystem
 
         protected virtual void Used(InventoryPlayer player)
         {
-            Debug.Log("Used is called");
             if (InventoryUIUtility.CanReceiveInput(gameObject) == false)
             {
                 return;
             }
 
-            Debug.Log("Setting items");
 
             // Set items
             vendorUI.Clear();
@@ -201,7 +199,6 @@ namespace Devdog.InventorySystem
 //                }
             }
 
-            Debug.Log("Setting currentVendor");
             vendorUI.currentVendor = this.GetComponent<VendorTriggerer>();
             vendorUI.window.Show();
         }
