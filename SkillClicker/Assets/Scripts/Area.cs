@@ -34,6 +34,19 @@ public class Area : MonoBehaviour {
 
     }
     [System.Serializable]
+    public class Blueprint
+    {
+        public string type;
+        public int id;
+
+        public Blueprint(string t, int i)
+        {
+            type = t;
+            id = i;
+        }
+
+    }
+    [System.Serializable]
     public class Neighbour
     {
         public string name;
@@ -55,6 +68,7 @@ public class Area : MonoBehaviour {
     public string name; //What is the name of the village
     public Resource[] resources; //What resources does this village have
     public Resource[] recipes; //What recipes does this village have
+    public Resource[] blueprints; //What blueprints does this village have
     public Neighbour[] neighbours; //What areas can I go to from here?
     public GameObject[] enemies; //What enemies are in this area
     public NPC[] npcs; //What npcs are in this area
@@ -74,7 +88,6 @@ public class Area : MonoBehaviour {
             map.MovePawn(this.gameObject);
         }
 
-        InventoryManager.AddCurrency(50, 2); //If cash is 50, get between 45 and 55 cash
 
     }
 

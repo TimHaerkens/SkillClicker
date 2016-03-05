@@ -16,8 +16,13 @@ public class Stats : MonoBehaviour {
         }
     }
 
+    public GameObject statPrefab;
+
+    public GameObject content;
+
+
     public Text[] texts;
-    Dictionary<string, Text> statTexts = new Dictionary<string, Text>();
+    Dictionary<string, Stat> statItems = new Dictionary<string, Stat>();
     void Awake()
     {
 
@@ -29,28 +34,49 @@ public class Stats : MonoBehaviour {
                 Destroy(this.gameObject);
         }
 
-        statTexts.Add("stat_timesclicked", texts[0]);
-        statTexts.Add("stat_secondswasted", texts[1]);
-        statTexts.Add("stat_moneyearned", texts[2]);
-        statTexts.Add("stat_moneyspent", texts[3]);
-        statTexts.Add("stat_monsterskilled", texts[4]);
-        statTexts.Add("stat_timesdied", texts[5]);
-        statTexts.Add("stat_treasuresfound", texts[6]);
-        statTexts.Add("stat_itemscrafted", texts[7]);
-        statTexts.Add("stat_mealscooked", texts[8]);
 
-        statTexts["stat_timesclicked"].text = PlayerPrefs.GetFloat("stat_timesclicked").ToString();
-        statTexts["stat_secondswasted"].text = PlayerPrefs.GetFloat("stat_secondswasted").ToString();
-        statTexts["stat_moneyearned"].text = PlayerPrefs.GetFloat("stat_moneyearned").ToString();
-        statTexts["stat_moneyspent"].text = PlayerPrefs.GetFloat("stat_moneyspent").ToString();
-        statTexts["stat_monsterskilled"].text = PlayerPrefs.GetFloat("stat_monsterskilled").ToString();
-        statTexts["stat_timesdied"].text = PlayerPrefs.GetFloat("stat_timesdied").ToString();
-        statTexts["stat_treasuresfound"].text = PlayerPrefs.GetFloat("stat_treasuresfound").ToString();
-        statTexts["stat_itemscrafted"].text = PlayerPrefs.GetFloat("stat_itemscrafted").ToString();
-        statTexts["stat_mealscooked"].text = PlayerPrefs.GetFloat("stat_mealscooked").ToString();
+
+        AddStat("Times Clicked", "stat_timesclicked");
+        AddStat("Seconds Wasted", "stat_secondswasted");
+
+        AddStat("Money Earned", "stat_moneyearned");
+        AddStat("Money Spent", "stat_moneyspent");
+
+        AddStat("Monsters Killed", "stat_monsterskilled");
+        AddStat("Times Died", "stat_timesdied");
+        AddStat("Treasures Found", "stat_treasuresfound");
+
+        AddStat("Ores Mined", "stat_oresmined");
+        AddStat("Logs Chopped", "stat_logschopped");
+        AddStat("Fish Caught", "stat_fishcaught");
+        AddStat("Materials Gathered", "stat_materialsgathered");
+        AddStat("Meals Cooked", "stat_mealscooked");
+        AddStat("Items Crafted", "stat_itemscrafted");
+        AddStat("Items Studied", "stat_itemsstudied");
+
+
+
+
 
 
     }
+
+    void AddStat(string name, string pref)
+    {
+        GameObject newStat = Instantiate(statPrefab, transform.position, Quaternion.identity) as GameObject;
+        newStat.transform.parent = content.transform;
+        newStat.transform.localScale = new Vector2(1, 1);
+
+        Stat stat = newStat.GetComponent<Stat>();
+
+        stat.name = name;
+        stat.pref = pref;
+        stat.UpdateValue();
+
+        statItems.Add(pref, stat);
+
+    }
+
 
     void Update()
     {
@@ -63,6 +89,6 @@ public class Stats : MonoBehaviour {
     public void UpdateStat(string stat, float value)
     {
         PlayerPrefs.SetFloat(stat, value);
-        statTexts[stat].text = Mathf.Round(PlayerPrefs.GetFloat(stat)).ToString();
+        statItems[stat].UpdateValue();
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using Devdog.InventorySystem;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using Devdog.InventorySystem.Models;
 
 public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -19,14 +20,19 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public Text amount;
 
-    
+    public CharacterUI characterUI;
+
+    void Awake()
+    {
+        characterUI = GameObject.Find("Character Tab").GetComponent<CharacterUI>();
+
+    }
+
 
     void Update () {
-        aantalClicks.text = "";
-        for(int i = 0; i < info.clicks - clicks; i++)
-        {
-            aantalClicks.text += ".";
-        }
+
+
+        UpdatePuntjes();
 
         if (_pressed)
         {
@@ -39,30 +45,55 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 CoolOff();
             }
         }
+
+        
+
+    }
+
+    void UpdatePuntjes()
+    {
+        aantalClicks.text = "";
+        for (int i = 0; i < info.clicks - clicks; i++)
+        {
+            aantalClicks.text += ".";
+        }
     }
 
 
     public float timeMouseDown;
     public float timeNotHolding;
+    public Image progressRing_pfb;
+    Image progressRing;
 
     bool _pressed = false;
     public void OnPointerDown(PointerEventData eventData)
     {
         _pressed = true;
+        if (info.skill == "Cooking")
+        {
+            Image ring = Instantiate(progressRing_pfb, eventData.pressPosition, Quaternion.identity) as Image;
+            ring.transform.parent = transform.parent.transform;
+            ring.transform.localScale = new Vector2(1, 1);
+            ring.name = "ProgressRing";
+            progressRing = ring;
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        timeMouseDown = 0;
         _pressed = false;
+        Destroy(GameObject.Find("ProgressRing"));
+        Clicked();
     }
 
-
+   
 
 
     void CoolOff()
     {
         timeNotHolding += Time.deltaTime;
-        if (timeNotHolding > 1)
+        if (timeNotHolding > 0.5f)
         {
             if (clicks > 0) clicks--;
             timeNotHolding = 0;
@@ -79,7 +110,7 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             return;
         }
 
-        if(info.skill == "Cooking")
+        if(info.skill == "Cooking" || info.skill == "Crafting")
         {
             if (Remaining() == 0)
             {
@@ -91,8 +122,9 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         //FMODUnity.RuntimeManager.PlayOneShot("event:/"+info.clickSound, transform.position);
         Stats.instance.UpdateStat("stat_timesclicked", PlayerPrefs.GetFloat("stat_timesclicked") + 1);
         clicks += ToolPower();
-        if (clicks >= info.clicks)
+        if (clicks >= info.clicks && !_pressed)
         {
+            UpdateStats();
             TakeIngredients();
             Loot(WhatLoot());
             GetXP();
@@ -101,10 +133,46 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
     }
 
+    public void UpdateStats()
+    {
+        switch(info.skill)
+        {
+            case "Mining":
+                Stats.instance.UpdateStat("stat_oresmined", PlayerPrefs.GetFloat("stat_oresmined") + 1);
+                break;
+            case "Woodcutting":
+                Stats.instance.UpdateStat("stat_logschopped", PlayerPrefs.GetFloat("stat_logschopped") + 1);
+                break;
+            case "Fishing":
+                Stats.instance.UpdateStat("stat_fishcaught", PlayerPrefs.GetFloat("stat_fishcaught") + 1);
+                break;
+            case "Gathering":
+                Stats.instance.UpdateStat("stat_materialsgathered", PlayerPrefs.GetFloat("stat_materialsgathered") + 1);
+                break;
+            case "Cooking":
+                Stats.instance.UpdateStat("stat_mealscooked", PlayerPrefs.GetFloat("stat_mealscooked") + 1);
+                break;
+            case "Crafting":
+                Stats.instance.UpdateStat("stat_itemscrafted", PlayerPrefs.GetFloat("stat_itemscrafted") + 1);
+                break;
+            case "Knowledge":
+                Stats.instance.UpdateStat("stat_itemsstudied", PlayerPrefs.GetFloat("stat_itemsstudied") + 1);
+                break;
+        }
+
+    }
+
     public void Hold()
     {
+        if (progressRing != null)
+        {
+            progressRing.rectTransform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+            progressRing.color = Color.Lerp(Color.white, Color.green, ((float)clicks / (float)info.clicks));
+            if (clicks >= info.clicks + 6) progressRing.color = Color.Lerp(Color.green, Color.red, ((float)clicks / (info.clicks + 8.0f)));
+        }
+
         timeMouseDown += Time.deltaTime;
-        if(timeMouseDown>0.5f)
+        if(timeMouseDown>0.2f)
         {
             Clicked();
             timeMouseDown = 0;
@@ -120,19 +188,27 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         InventoryItemBase whatLoot = new InventoryItemBase();
 
-        if(info.skill=="Cooking")
+        if (info.skill == "Cooking")
         {
+            if (clicks > info.clicks + 8) return info.loot[1];
+            else return info.loot[0];
+
+            //If classic cooking instead of holding
             int cookingLevel = GameObject.Find("Player").GetComponent<Skills>().skills[7].level;
-            float succesChance = 60 + ((cookingLevel-info.level)*20);
+            float succesChance = 60 + ((cookingLevel - info.level) * 20);
             Debug.Log("chance: " + succesChance);
-            if (Random.Range(1, 101) <= succesChance)   whatLoot = info.loot[0];//Cooked version
-            else                                        whatLoot = info.loot[1];//Burnt version
+            if (Random.Range(1, 101) <= succesChance) whatLoot = info.loot[0];//Cooked version
+            else whatLoot = info.loot[1];//Burnt version
         }
 
-        else whatLoot = info.loot[0]; //Just the first item
+        else
+        {
+            whatLoot = info.loot[Random.Range(0,info.loot.Length)]; //Just the first item
+        }
 
         return whatLoot;
     }
+
 
     //Check how much you can gather left
     int Remaining()
@@ -147,15 +223,25 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         //Calculate how much you can make if this needs ingredients
         foreach (InventoryItemBase ing in info.ingredients)
         {
-            var allOfID = InventoryManager.FindAll(info.ingredients[0].ID, false);
-            if (allOfID.Count == 0) return 0;//One of the ingredients lacking
-            if(allOfID.Count < remaining || remaining == 0)
+            var allOfID = InventoryManager.FindAll(ing.ID, false);
+            int total = 0;
+            foreach (InventoryItemBase item in allOfID)
+            {
+                total += (int)item.currentStackSize;
+            }
+            if (total == 0)
+            {
+                amount.text = "0";
+                return 0;//One of the ingredients lacking
+            }
+            if(total < remaining || remaining == 0)
             {
                 //Else update ingredients based on items that you have fewest or not yet set
-                remaining = allOfID.Count;
+                remaining = total;
+                Debug.Log(remaining);
             }
         }
-
+        amount.text = remaining.ToString();
         return remaining;
     }
 
@@ -165,18 +251,90 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             foreach (InventoryItemBase ing in info.ingredients)
             {
-                InventoryManager.RemoveItem(info.ingredients[0].ID, 1, false);
+                InventoryManager.RemoveItem(ing.ID, 1, false);
             }
         }
     }
 
     int ToolPower()
     {
-        if (GameManager.instance.development) return 2;
+        float tempToolpower = 1;
+
+        //Calculate tool power
+        float tl = GetToolLevel();
+        float sl = GetSkillLevel();
+
+        tempToolpower = (tl * (Mathf.Pow(1.01f,tl))) * (1 + (sl * 0.01f));
+
+        if (GameManager.instance.development) return Mathf.RoundToInt(tempToolpower * 2);
 
 
+        return Mathf.RoundToInt(tempToolpower);
+    }
+
+    float GetToolLevel()
+    {
+        string skill = info.skill;
+        if (skill == "Cooking" || skill == "Crafting" || skill == "Knowledge" || skill == "Magic") return 1;
+        InventoryItemBase item = new InventoryItemBase();
+        float tl = 0;
+
+        var allCharacterItems = characterUI.items;
+
+        bool toolFound = false;
+        foreach (InventoryUIItemWrapperBase wrapper in allCharacterItems)
+        {
+            if (wrapper.item == null) continue;
+            foreach (InventoryItemPropertyLookup pr in wrapper.item.properties)
+            {
+                if (pr.property.name == "Skill")
+                {
+                    //Debug.Log("Skill: " + pr.value);
+                    if (pr.value != skill)
+                    {
+                       // Debug.Log("Not the good tool");
+                        toolFound = false;
+                    }
+                    else
+                    {
+                        toolFound = true;
+                        //Debug.Log("Tool found");
+                        break;
+                    }
+                }
+            }
+            if (toolFound)
+            {
+                foreach (InventoryItemPropertyLookup pr in wrapper.item.properties)
+                {
+                    if (pr.property.name == "Level")
+                    {
+                        //Debug.Log("Level: " + float.Parse(pr.value));
+                        return float.Parse(pr.value);
+                    }
+                }
+            }
+            else continue;
+        }
+
+        if (tl == 0) GameManager.instance.ShowNotification("You need a " + info.skill + " tool");
+       
+        return tl;
+    }
+
+    float GetSkillLevel()
+    {
+        string skill = info.skill;
+        foreach(Skills.Skill s in GameObject.Find("Player").GetComponent<Skills>().skills)
+        {
+            if(s.name == skill)
+            {
+                return s.level;
+            }
+        }
         return 1;
     }
+
 
     void GetXP()
     {
@@ -204,6 +362,26 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 skills.skills[4].GetXP(info.xp);
                 progress =  skills.skills[4].LevelProgress();
                 skills.UpdateSkillsInfo(skill, skills.skills[4].xp);
+                break;
+            case "Crafting":
+                skills.skills[5].GetXP(info.xp);
+                progress = skills.skills[5].LevelProgress();
+                skills.UpdateSkillsInfo(skill, skills.skills[5].xp);
+                break;
+            case "Cooking":
+                skills.skills[6].GetXP(info.xp);
+                progress = skills.skills[6].LevelProgress();
+                skills.UpdateSkillsInfo(skill, skills.skills[6].xp);
+                break;
+            case "Knowledge":
+                skills.skills[7].GetXP(info.xp);
+                progress = skills.skills[7].LevelProgress();
+                skills.UpdateSkillsInfo(skill, skills.skills[7].xp);
+                break;
+            case "Magic":
+                skills.skills[8].GetXP(info.xp);
+                progress = skills.skills[8].LevelProgress();
+                skills.UpdateSkillsInfo(skill, skills.skills[8].xp);
                 break;
         }
 

@@ -8,7 +8,7 @@ public class Loot : MonoBehaviour {
 
     public InventoryItemBase loot;
     public Image image;
-    float distance = 0.6f;
+    float distance = 0.5f;
     public void Awake()
     {
 

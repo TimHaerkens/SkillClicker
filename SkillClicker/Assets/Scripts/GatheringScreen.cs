@@ -39,7 +39,17 @@ public class GatheringScreen : MonoBehaviour
         if (info.skill == "Fishing")
         {
             skill.GetComponent<Image>().sprite = skillIcons[3];
-            UpdateXPBar(skills.skills[3].LevelProgress());
+            UpdateXPBar(skills.skills[5].LevelProgress());
+        }
+        if (info.skill == "Crafting")
+        {
+            skill.GetComponent<Image>().sprite = skillIcons[4];
+            UpdateXPBar(skills.skills[6].LevelProgress());
+        }
+        if (info.skill == "Cooking")
+        {
+            skill.GetComponent<Image>().sprite = skillIcons[5];
+            UpdateXPBar(skills.skills[7].LevelProgress());
         }
 
         clickable.GetComponent<Clicks>().info = info;

@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour {
         //Update attack screen
         attackScreen.name.text = name;
         UpdateHealthBar(health / hitpoints);
+        attackScreen.UpdateXPBar(skills.skills[0].LevelProgress());
 
 
         GetComponent<Button>().onClick.AddListener(() => { Clicked();  });
@@ -57,10 +58,11 @@ public class Enemy : MonoBehaviour {
         {
             GameObject coinSpawn = Instantiate(coin, transform.position, Quaternion.identity) as GameObject;
             coinSpawn.transform.parent = attackScreen.gameObject.transform;
-            coinSpawn.transform.SetAsFirstSibling();
+            //coinSpawn.transform.SetAsFirstSibling();
             coinSpawn.transform.localScale = new Vector3(1, 1, 1);
         }
-        myImage.color = Color.red;
+        myImage.color = Color.grey;
+        GameManager.instance.ShowTextFade("+" + xp + " xp");
 
         
     }
@@ -71,11 +73,15 @@ public class Enemy : MonoBehaviour {
         if(dead)
         {
             deadTimer += Time.deltaTime;
-            if (deadTimer>1)
+            if (deadTimer>0.5f)
             {
                 attackScreen.SpawnEnemy();
                 Destroy(gameObject);
             }
+        }
+        else
+        {
+            transform.Rotate(0, Input.gyro.rotationRateUnbiased.y, 0);
         }
     }
 
@@ -118,6 +124,15 @@ public class Enemy : MonoBehaviour {
         skills.UpdateSkillsInfo("attack", skills.skills[0].xp);
 
         attackScreen.UpdateXPBar(progress);
+    }
+
+    InventoryItemBase WhatLoot()
+    {
+        InventoryItemBase whatLoot = new InventoryItemBase();
+
+        whatLoot = loot[Random.Range(0, loot.Length)];
+
+        return whatLoot;
     }
 
 }

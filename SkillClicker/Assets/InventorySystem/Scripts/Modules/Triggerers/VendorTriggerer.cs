@@ -285,7 +285,7 @@ namespace Devdog.InventorySystem
                     vendorUI.AddItem(copy); // Add to regular collection.
                 }
             }
-
+            Stats.instance.UpdateStat("stat_moneyearned", PlayerPrefs.GetFloat("stat_moneyearned") + GetSellPrice(item, amount));
             InventoryManager.AddCurrency(GetSellPrice(item, amount), item.sellPrice.currency.ID);
             InventoryManager.RemoveItem(item.ID, amount, false);
 
@@ -409,6 +409,7 @@ namespace Devdog.InventorySystem
             c1.currentStackSize = amount;
             c1.maxStackSize = ItemManager.database.items[c1.ID].maxStackSize; // Reset stack size from database.
 
+            Stats.instance.UpdateStat("stat_moneyspent", PlayerPrefs.GetFloat("stat_moneyspent") + GetBuyBackPrice(item, amount));
             InventoryManager.RemoveCurrency(GetBuyBackPrice(item, amount), item.sellPrice.currency.ID);
             c1.PickupItem();
 
@@ -435,6 +436,7 @@ namespace Devdog.InventorySystem
             c1.currentStackSize = amount;
             c1.maxStackSize = ItemManager.database.items[c1.ID].maxStackSize; // Reset stack size from database.
 
+            Stats.instance.UpdateStat("stat_moneyspent", PlayerPrefs.GetFloat("stat_moneyspent") + GetBuyPrice(item, amount));
             InventoryManager.RemoveCurrency(GetBuyPrice(item, amount), item.buyPrice.currency.ID);
             c1.PickupItem();
             //            InventoryManager.AddItem(c1); // Will handle unstacking if the stack size goes out of bounds.

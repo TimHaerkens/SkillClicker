@@ -29,6 +29,7 @@ public class Skills : MonoBehaviour {
         public void LevelUp()
         {
             //FMODUnity.RuntimeManager.PlayOneShot("event:/LevelUp");
+            GameManager.instance.Celebration();
             level++;
             GameManager.instance.ShowNotification(name + " Level " + level + " achieved!");
 
@@ -38,14 +39,17 @@ public class Skills : MonoBehaviour {
         {
             xp += amount;
             if (xp >= XPTable[level+1]) LevelUp();
+
+            //Update playerprefs
+            PlayerPrefs.SetFloat("xp_" + name, xp);
         }
+
 
         public float LevelProgress()
         {
             int currentlvl = CalculateLevel(xp);
             float requiredXPThisLevel = XPTable[currentlvl + 1] - XPTable[currentlvl];
             float percentage = (xp-XPTable[currentlvl]) / requiredXPThisLevel * 100;
-
             
             return percentage;
         }
@@ -55,6 +59,13 @@ public class Skills : MonoBehaviour {
     void Awake()
     {
         skillsInfo = GameObject.Find("Skills Tab").GetComponent<SkillsInfo>();
+        foreach(Skill s in skills)
+        {
+            s.xp = PlayerPrefs.GetFloat("xp_" + s.name);
+            Debug.Log("skill " + s.name + " is " + s.xp);
+            UpdateSkillsInfo(s.name, s.xp);
+
+        }
     }
 
     public void UpdateSkillsInfo(string skill, float xp)
@@ -75,6 +86,7 @@ public class Skills : MonoBehaviour {
         Debug.Log("skill: "+ skill + " & id: " + id);
 
         skillsInfo.levels[id].text = CalculateLevel(xp).ToString();
+        skills[id].level = CalculateLevel(skills[id].xp);
     }
 
     static int CalculateLevel(float xp)

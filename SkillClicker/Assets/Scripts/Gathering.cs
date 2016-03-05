@@ -10,7 +10,7 @@ public class Gathering : MonoBehaviour
     [System.Serializable]
     public class Gatherable
     {
-        public string name;//What is this ore called
+        public string name;//What is this gatherable called
         public int level; //What level is this gatherable
         public int clicks; //How many clicks to get loot
         public int xp; //How many xp do you get for mining this ore
@@ -55,6 +55,7 @@ public class Gathering : MonoBehaviour
     public Gatherable[] FishingSpots;
     public Gatherable[] GatherSpots;
     public Gatherable[] Recipes;
+    public Gatherable[] Blueprints;
 
 
 
@@ -88,14 +89,15 @@ public class Gathering : MonoBehaviour
 
         SpawnResources();
         SpawnRecipes();
+        SpawnBlueprints();
 
 
 
 
     }
 
-//Spawn resources in the current area
-public void SpawnResources()
+    //Spawn resources in the current area
+    public void SpawnResources()
     {
         foreach (Button b in resourcebuttons) Destroy(b.gameObject);
         resourcebuttons.Clear();
@@ -116,8 +118,20 @@ public void SpawnResources()
         }
     }
 
+    //Spawn blueprints in the current area
+    public void SpawnBlueprints()
+    {
+        foreach (Button b in blueprintbuttons) Destroy(b.gameObject);
+        blueprintbuttons.Clear();
+        foreach (Area.Resource r in player.currentArea.GetComponent<Area>().blueprints)
+        {
+            Spawn(r.type, r.id, "blueprint");
+        }
+    }
+
     public List<Button> resourcebuttons = new List<Button>();
     public List<Button> recipebuttons = new List<Button>();
+    public List<Button> blueprintbuttons = new List<Button>();
 
     //Spawn a button
     void Spawn(string category, int id, string type)
@@ -134,8 +148,13 @@ public void SpawnResources()
             newButton.transform.parent = GameObject.Find("Kitchen Tab").transform.FindChild("Recipes").transform;
             recipebuttons.Add(newButton);
         }
+        if (type == "blueprint")
+        {
+            newButton.transform.parent = GameObject.Find("Workshop Tab").transform.FindChild("Blueprints").transform;
+            blueprintbuttons.Add(newButton);
+        }
 
-            Gatherable thisInfo = newButton.GetComponent<GatherableScript>().myInfo;
+        Gatherable thisInfo = newButton.GetComponent<GatherableScript>().myInfo;
 
         switch (category)
         {
@@ -199,6 +218,19 @@ public void SpawnResources()
                 thisInfo.image =                Recipes[id].image;
                 thisInfo.clickSound =           Recipes[id].clickSound;
                 thisInfo.loot =                 Recipes[id].loot;
+                break;
+            case "Blueprint":
+                thisInfo.name =                 Blueprints[id].name;
+                thisInfo.level =                Blueprints[id].level;
+                thisInfo.clicks =               Blueprints[id].clicks;
+                thisInfo.xp =                   Blueprints[id].xp;
+                thisInfo.skill =                Blueprints[id].skill;
+                thisInfo.requiredTool =         Blueprints[id].requiredTool;
+                thisInfo.ingredients =          Blueprints[id].ingredients;
+                thisInfo.icon =                 Blueprints[id].icon;
+                thisInfo.image =                Blueprints[id].image;
+                thisInfo.clickSound =           Blueprints[id].clickSound;
+                thisInfo.loot =                 Blueprints[id].loot;
                 break;
         }
 
