@@ -67,6 +67,8 @@ public class Area : MonoBehaviour {
 
     public string name; //What is the name of the village
     public Resource[] resources; //What resources does this village have
+    public Resource[] magics; //What magics does this village have
+    public Resource[] scrolls; //What scrolls does this village have
     public Resource[] recipes; //What recipes does this village have
     public Resource[] blueprints; //What blueprints does this village have
     public Neighbour[] neighbours; //What areas can I go to from here?
