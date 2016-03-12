@@ -12,7 +12,8 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public Text aantalClicks;
     public int clicks = 0;
 
-    public Gathering.Gatherable info;
+    public Gathering.Gatherable info;//Info of the clickable
+    public Gathering.Collection info2;//Info of the collection
     public Skills skills;
 
     public GatheringScreen gatheringScreen;
@@ -130,6 +131,7 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             GetXP();
             clicks = 0;
             UpdateAmount();
+            if(info.skill=="Fishing" || info.skill=="Gathering")GetNewFromCollection();//Fishing is a random collection
         }
     }
 
@@ -215,23 +217,23 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         if (info.ingredients.Length == 0)
         {
-            amount.text = "";
+            //amount.text = "";
             return 100;//No ingredients required
         }
 
         int remaining = 0;
         //Calculate how much you can make if this needs ingredients
-        foreach (InventoryItemBase ing in info.ingredients)
+        foreach (Gathering.Gatherable.ingredientData id in info.ingredients)
         {
-            var allOfID = InventoryManager.FindAll(ing.ID, false);
+            var allOfID = InventoryManager.FindAll(id.ingredient.ID, false);
             int total = 0;
             foreach (InventoryItemBase item in allOfID)
             {
-                total += (int)item.currentStackSize;
+                total += Mathf.FloorToInt(item.currentStackSize/id.amount);
             }
             if (total == 0)
             {
-                amount.text = "0";
+                //amount.text = "0";
                 return 0;//One of the ingredients lacking
             }
             if(total < remaining || remaining == 0)
@@ -241,7 +243,7 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 Debug.Log(remaining);
             }
         }
-        amount.text = remaining.ToString();
+        //amount.text = remaining.ToString();
         return remaining;
     }
 
@@ -249,9 +251,9 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         if(info.ingredients.Length>0)
         {
-            foreach (InventoryItemBase ing in info.ingredients)
+            foreach (Gathering.Gatherable.ingredientData id in info.ingredients)
             {
-                InventoryManager.RemoveItem(ing.ID, 1, false);
+                InventoryManager.RemoveItem(id.ingredient.ID, id.amount, false);
             }
         }
     }
@@ -264,12 +266,13 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         float tl = GetToolLevel();
         float sl = GetSkillLevel();
 
-        tempToolpower = (tl * (Mathf.Pow(1.01f,tl))) * (1 + (sl * 0.01f));
+        tempToolpower = (tl * (Mathf.Pow(1.01f,tl))) + ((sl * 0.2f));
 
-        if (GameManager.instance.development) return Mathf.RoundToInt(tempToolpower * 2);
+        Debug.Log(tl + " + " + sl * 0.2f + " = " + Mathf.FloorToInt(tempToolpower));
 
+        if (GameManager.instance.development) return Mathf.FloorToInt(tempToolpower * 2);
 
-        return Mathf.RoundToInt(tempToolpower);
+        return Mathf.FloorToInt(tempToolpower);
     }
 
     float GetToolLevel()
@@ -344,42 +347,42 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         switch (skill)
         {
             case "Mining":
-                skills.skills[1].GetXP(info.xp);
+                skills.skills[1].GetXP(info.xp());
                 progress =  skills.skills[1].LevelProgress();
                 skills.UpdateSkillsInfo(skill, skills.skills[1].xp);
                 break;
             case "Woodcutting":
-                skills.skills[2].GetXP(info.xp);
+                skills.skills[2].GetXP(info.xp());
                 progress =  skills.skills[2].LevelProgress();
                 skills.UpdateSkillsInfo(skill, skills.skills[2].xp);
                 break;
             case "Fishing":
-                skills.skills[3].GetXP(info.xp);
+                skills.skills[3].GetXP(info.xp());
                 progress =  skills.skills[3].LevelProgress();
                 skills.UpdateSkillsInfo(skill, skills.skills[3].xp);
                 break;
             case "Gathering":
-                skills.skills[4].GetXP(info.xp);
+                skills.skills[4].GetXP(info.xp());
                 progress =  skills.skills[4].LevelProgress();
                 skills.UpdateSkillsInfo(skill, skills.skills[4].xp);
                 break;
             case "Crafting":
-                skills.skills[5].GetXP(info.xp);
+                skills.skills[5].GetXP(info.xp());
                 progress = skills.skills[5].LevelProgress();
                 skills.UpdateSkillsInfo(skill, skills.skills[5].xp);
                 break;
             case "Cooking":
-                skills.skills[6].GetXP(info.xp);
+                skills.skills[6].GetXP(info.xp());
                 progress = skills.skills[6].LevelProgress();
                 skills.UpdateSkillsInfo(skill, skills.skills[6].xp);
                 break;
             case "Knowledge":
-                skills.skills[7].GetXP(info.xp);
+                skills.skills[7].GetXP(info.xp());
                 progress = skills.skills[7].LevelProgress();
                 skills.UpdateSkillsInfo(skill, skills.skills[7].xp);
                 break;
             case "Magic":
-                skills.skills[8].GetXP(info.xp);
+                skills.skills[8].GetXP(info.xp());
                 progress = skills.skills[8].LevelProgress();
                 skills.UpdateSkillsInfo(skill, skills.skills[8].xp);
                 break;
@@ -391,6 +394,37 @@ public class Clicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     }
 
+    void GetNewFromCollection()
+    {
+        //Choose random of this collection
+        List<Gathering.Gatherable> possibleSpawns = new List<Gathering.Gatherable>();
+        foreach (Gathering.Gatherable g in info2.gatherables)
+        {
+            float level = 0;
+            foreach (Skills.Skill s in skills.skills)
+            {
+                Debug.Log("s.name: " + s.name + "& g.name: " + g.skill);
+                if (s.name == g.skill)
+                {
+                    Debug.Log("gevonden level: " + s.level);
+                    level = s.level;
+                }
+            }
+            if (g.level <= level)
+            {
+                possibleSpawns.Add(g);
+                Debug.Log(g.name + " is viable");
+            }
+        }
+
+        Debug.Log("Count: " + possibleSpawns.Count);
+        Gathering.Gatherable spawnInfo = possibleSpawns[Random.Range(0, possibleSpawns.Count)];
+        Debug.Log("choice: " + spawnInfo.name);
+
+        gatheringScreen.info = spawnInfo;
+        gatheringScreen.SetClickable();
+        gatheringScreen.clickable.GetComponent<Clicks>().UpdateAmount();
+    }
 
     public GameObject loot;//Prefab of drop
     void Loot(InventoryItemBase whatLoot)

@@ -37,7 +37,7 @@ namespace Devdog.InventorySystem
             {
                 SaveItems(serializer.SerializeCollection(collection), (bool saved) =>
                 {
-                    //Debug.Log("Saved collection " + collection.collectionName);
+                    Debug.Log("Saved collection " + collection.collectionName);
                 });
             }
             catch (SerializedObjectNotFoundException e)
@@ -56,7 +56,7 @@ namespace Devdog.InventorySystem
             {
                 LoadItems((object data) =>
                 {
-                    Debug.Log("Loaded collection " + collection.collectionName);
+                    //Debug.Log("Loaded collection " + collection.collectionName);
 
                     var model = serializer.DeserializeCollection(data);
                     model.FillCollectionUsingThis(collection);

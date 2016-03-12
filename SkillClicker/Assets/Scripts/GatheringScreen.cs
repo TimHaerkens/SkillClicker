@@ -1,23 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
+using Devdog.InventorySystem;
 
 public class GatheringScreen : MonoBehaviour
 {
     public Gathering.Gatherable info;
+    public Gathering.Collection info2;
     public Skills skills;
 
     //Images
     public Sprite[] skillIcons;
+
+    //Buttons
+    public List<Button> ingredientButtons = new List<Button>();
 
     //References
     public Text name;
     public GameObject clickable;
     public GameObject skill;
     public RectTransform xpBar;
+    public GameObject ingredientsPanel;
+
+    //Resources
+    public Button ingredientButton;
 
     public void SetClickable()
     {
+        //Remove ingredients
+        foreach (Button b in ingredientButtons) Destroy(b.gameObject);
+        ingredientButtons.Clear();
+
         name.text = info.name;
         clickable.GetComponent<Image>().sprite = info.image;
 
@@ -39,23 +53,48 @@ public class GatheringScreen : MonoBehaviour
         if (info.skill == "Fishing")
         {
             skill.GetComponent<Image>().sprite = skillIcons[3];
-            UpdateXPBar(skills.skills[5].LevelProgress());
+            UpdateXPBar(skills.skills[3].LevelProgress());
         }
         if (info.skill == "Crafting")
         {
             skill.GetComponent<Image>().sprite = skillIcons[4];
             UpdateXPBar(skills.skills[6].LevelProgress());
+            ShowIngredients();
+            
         }
         if (info.skill == "Cooking")
         {
             skill.GetComponent<Image>().sprite = skillIcons[5];
             UpdateXPBar(skills.skills[7].LevelProgress());
+            ShowIngredients();
         }
 
         clickable.GetComponent<Clicks>().info = info;
+        clickable.GetComponent<Clicks>().info2 = info2;
 
-       
 
+
+    }
+
+    void ShowIngredients()
+    {
+        //Show ingredients
+        foreach (Gathering.Gatherable.ingredientData id in info.ingredients)
+        {
+            Button newIngredient = Instantiate(ingredientButton, ingredientButton.transform.position, Quaternion.identity) as Button;
+            newIngredient.transform.parent = ingredientsPanel.transform;
+            newIngredient.transform.localScale = new Vector2(1, 1);
+            //Calculate how much of the item you have
+            var allOfID = InventoryManager.FindAll(id.ingredient.ID, false);
+            uint total = 0;
+            foreach (InventoryItemBase item in allOfID)
+            {
+                total += item.currentStackSize;
+            }
+            newIngredient.transform.FindChild("Amount").GetComponent<Text>().text = total + "/" + id.amount;
+            newIngredient.transform.FindChild("Image").GetComponent<Image>().sprite = id.ingredient.icon;
+            ingredientButtons.Add(newIngredient);
+        }
     }
 
     public void UpdateXPBar(float progress)

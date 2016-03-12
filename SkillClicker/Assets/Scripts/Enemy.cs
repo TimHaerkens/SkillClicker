@@ -2,15 +2,16 @@
 using System.Collections;
 using Devdog.InventorySystem;
 using UnityEngine.UI;
+using Devdog.InventorySystem.Models;
 
 public class Enemy : MonoBehaviour {
 
     public string name; // What is the name of the enemy
     public Sprite sprite; // How does the enemy look
+    public int level;
     public float hitpoints; // How many hitpoints does the enemy have
     public float health; // How many hitpoints does the enemy have LEFT
     public float damage; //How much damage the enemy can do to the player
-    public float xp; //How much xp do I get from this enemy
     public float lootChance; //Percentage of getting loot
     public InventoryItemBase[] loot; //What are the items you can get from this
     public float cash; //How much cash do you get from this monster? (average, get a random around this number)
@@ -22,15 +23,34 @@ public class Enemy : MonoBehaviour {
     public Skills skills;
     public AttackScreen attackScreen;
     public Stats stats;
+    public CharacterUI characterUI;
+
 
     public GameObject coin;
+
+    public int Hitpoints()
+    {
+        float baseClicks = 5;
+        //Debug.Log("You must click " + (baseClicks + (level * Mathf.Log(level, 1.21f))) + " times for " + name);
+        return Mathf.RoundToInt(baseClicks + (level * Mathf.Log(level, 1.21f)));
+    }
+
+    public float xp()
+    {
+        float baseXP = 3;
+        Debug.Log("You get " + (baseXP + (level * Mathf.Log(level, 1.9f))) + " xp");
+        return baseXP + (level * Mathf.Log(level, 1.9f));
+    }
 
     void Awake()
     {
         skills = GameObject.Find("Player").GetComponent<Skills>();
         attackScreen = GameObject.Find("Attack Tab").GetComponent<AttackScreen>();
+        characterUI = GameObject.Find("Character Tab").GetComponent<CharacterUI>();
         stats = GameObject.Find("Stats Tab").GetComponent<Stats>();
         myImage = GetComponent<Image>();
+        hitpoints = Hitpoints();
+
 
         health = hitpoints;
 
@@ -62,7 +82,7 @@ public class Enemy : MonoBehaviour {
             coinSpawn.transform.localScale = new Vector3(1, 1, 1);
         }
         myImage.color = Color.grey;
-        GameManager.instance.ShowTextFade("+" + xp + " xp");
+        GameManager.instance.ShowTextFade("+" + xp() + " xp");
 
         
     }
@@ -95,15 +115,99 @@ public class Enemy : MonoBehaviour {
         if (health <= 0)
         {
             Die();
+            Loot(WhatLoot());
             GetXP();
         }
     }
 
+    public GameObject loot_pfb;//Prefab of drop
+    void Loot(InventoryItemBase whatLoot)
+    {
+        GameObject lootSpawn = Instantiate(loot_pfb, transform.position, Quaternion.identity) as GameObject;
+        lootSpawn.transform.parent = attackScreen.gameObject.transform;
+        lootSpawn.transform.SetAsLastSibling();
+        lootSpawn.transform.localScale = new Vector3(1, 1, 1);
+        lootSpawn.GetComponent<Loot>().loot = whatLoot;
+        lootSpawn.GetComponent<Loot>().image.sprite = whatLoot.icon;
+
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/succes", transform.position);
+
+
+    }
+
     int WeaponPower()
     {
-        if (GameManager.instance.development) return 2;
+        float tempWeaponpower = 1;
 
+        //Calculate tool power
+        float tl = GetToolLevel();
+        float sl = GetSkillLevel();
 
+        tempWeaponpower = (tl * (Mathf.Pow(1.01f, tl))) + ((sl * 0.2f));
+
+        Debug.Log(tl + " + " + sl * 0.2f + " = " + Mathf.FloorToInt(tempWeaponpower));
+
+        if (GameManager.instance.development) return Mathf.FloorToInt(tempWeaponpower * 2);
+
+        return Mathf.FloorToInt(tempWeaponpower);
+    }
+
+    float GetToolLevel()
+    {
+        
+        InventoryItemBase item = new InventoryItemBase();
+        float tl = 0;
+
+        var allCharacterItems = characterUI.items;
+
+        bool toolFound = false;
+        foreach (InventoryUIItemWrapperBase wrapper in allCharacterItems)
+        {
+            if (wrapper.item == null) continue;
+            foreach (InventoryItemPropertyLookup pr in wrapper.item.properties)
+            {
+                if (pr.property.name == "Skill")
+                {
+                    if (pr.value != "Attack")
+                    {
+                        toolFound = false;
+                    }
+                    else
+                    {
+                        toolFound = true;
+                        break;
+                    }
+                }
+            }
+            if (toolFound)
+            {
+                foreach (InventoryItemPropertyLookup pr in wrapper.item.properties)
+                {
+                    if (pr.property.name == "Level")
+                    {
+                        //Debug.Log("Level: " + float.Parse(pr.value));
+                        return float.Parse(pr.value);
+                    }
+                }
+            }
+            else continue;
+        }
+
+        if (tl == 0) return 1;
+
+        return tl;
+    }
+
+    float GetSkillLevel()
+    {
+        string skill = "Attack";
+        foreach (Skills.Skill s in GameObject.Find("Player").GetComponent<Skills>().skills)
+        {
+            if (s.name == skill)
+            {
+                return s.level;
+            }
+        }
         return 1;
     }
 
@@ -119,7 +223,7 @@ public class Enemy : MonoBehaviour {
     {
         float progress = 0;
 
-        skills.skills[0].GetXP(xp);
+        skills.skills[0].GetXP(xp());
         progress = skills.skills[0].LevelProgress();
         skills.UpdateSkillsInfo("attack", skills.skills[0].xp);
 

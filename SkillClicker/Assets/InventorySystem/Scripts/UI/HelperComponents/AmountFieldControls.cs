@@ -13,10 +13,16 @@ namespace Assets.InventorySystem.Scripts.UI.HelperComponents
         public int maxAmount = 999;
 
         [SerializeField]
-        private Button _minButton;
+        private Button _minusButton;
 
         [SerializeField]
         private Button _plusButton;
+
+        [SerializeField]
+        private Button _maxButton;
+
+        [SerializeField]
+        private Button _minButton;
 
         [SerializeField]
         private InputField _inputField;
@@ -28,11 +34,17 @@ namespace Assets.InventorySystem.Scripts.UI.HelperComponents
 
         protected virtual void Awake()
         {
-            if (_minButton != null)
-                _minButton.onClick.AddListener(MinusClicked);
+            if (_minusButton != null)
+                _minusButton.onClick.AddListener(MinusClicked);
 
             if (_plusButton != null)
                 _plusButton.onClick.AddListener(PlusClicked);
+
+            if (_maxButton != null)
+                _maxButton.onClick.AddListener(MaxClicked);
+
+            if (_minButton != null)
+                _minButton.onClick.AddListener(MinClicked);
         }
 
         public void Set(int min, int max)
@@ -60,6 +72,18 @@ namespace Assets.InventorySystem.Scripts.UI.HelperComponents
             else
                 _inputField.text = (amount + 1).ToString();
 
+            ValidateAmount();
+        }
+
+        protected virtual void MaxClicked()
+        {
+            _inputField.text = maxAmount.ToString();
+            ValidateAmount();
+        }
+
+        protected virtual void MinClicked()
+        {
+            _inputField.text = minAmount.ToString();
             ValidateAmount();
         }
 

@@ -14,7 +14,7 @@ public class Stat : MonoBehaviour {
 
     public void UpdateValue()
     {
-        value.text = PlayerPrefs.GetFloat(pref).ToString();
+        value.text = Mathf.Round(PlayerPrefs.GetFloat(pref)).ToString();
         statText.text = name;
 
     }

@@ -21,7 +21,7 @@ public class AreaTab : MonoBehaviour {
     {
         if (GameManager.instance.development)
         {
-            InventoryManager.AddCurrency(100, 2);
+            //InventoryManager.AddCurrency(100, 2);
         }
     }
 }

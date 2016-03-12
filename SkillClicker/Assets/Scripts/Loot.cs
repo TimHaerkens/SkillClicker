@@ -15,7 +15,6 @@ public class Loot : MonoBehaviour {
         directionX = Random.Range(-1.0f, 1.0f);
         directionY = Mathf.Sqrt(Mathf.Abs((distance * distance) - (directionX * directionX)));
         if (Random.Range(1, 3) == 2) directionY *= -1;
-        Debug.Log(directionY);
         
     }
 

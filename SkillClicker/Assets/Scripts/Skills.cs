@@ -1,23 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Skills : MonoBehaviour {
 
     static SkillsInfo skillsInfo;
 
-    static float[] XPTable = new float[10]
-    {
-        0,
-        0,
-        25,
-        43,
-        73,
-        123,
-        209,
-        605,
-        1025,
-        1744
-    };
+    static List<float> XPTable = new List<float>();
 
     [System.Serializable]
 	public class Skill
@@ -33,6 +22,13 @@ public class Skills : MonoBehaviour {
             level++;
             GameManager.instance.ShowNotification(name + " Level " + level + " achieved!");
 
+        }
+
+        public void Reset()
+        {
+            PlayerPrefs.SetFloat("xp_" + name, 0);
+            xp = 0;
+            GameObject.Find("Player").GetComponent<Skills>().UpdateSkillsInfo(name, 0);
         }
 
         public void GetXP(float amount)
@@ -56,13 +52,25 @@ public class Skills : MonoBehaviour {
 
     }
 
+    
+    private float ExpAtLevel(int baseExp, float curve, int level)
+    {
+        float current = baseExp * (Mathf.Pow(curve, level) - Mathf.Pow(1, level)) * 10;
+        return current;
+    }
+
     void Awake()
     {
+        for(int level = 0; level < 50; level++)
+        {
+            float total = ExpAtLevel(50,1.1f, level-1);
+            XPTable.Add(total);
+        }
+
         skillsInfo = GameObject.Find("Skills Tab").GetComponent<SkillsInfo>();
         foreach(Skill s in skills)
         {
             s.xp = PlayerPrefs.GetFloat("xp_" + s.name);
-            Debug.Log("skill " + s.name + " is " + s.xp);
             UpdateSkillsInfo(s.name, s.xp);
 
         }
@@ -83,7 +91,6 @@ public class Skills : MonoBehaviour {
             case "Knowledge": id = 7; break;
             case "Magic": id = 8; break;
         }
-        Debug.Log("skill: "+ skill + " & id: " + id);
 
         skillsInfo.levels[id].text = CalculateLevel(xp).ToString();
         skills[id].level = CalculateLevel(skills[id].xp);
@@ -92,7 +99,7 @@ public class Skills : MonoBehaviour {
     static int CalculateLevel(float xp)
     {
         int tempLevel = 0;
-        for (int i = 0; i < XPTable.Length; i++)
+        for (int i = 0; i < XPTable.Count; i++)
         {
             if(xp - XPTable[i]>=0)
             {

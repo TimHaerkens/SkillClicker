@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
 
     //Reference
     public Image celebration;
+    public UIWindow loadingScreen;
+    public RectTransform loadingBar;
 
     private static GameManager Instance;
 
@@ -35,22 +37,71 @@ public class GameManager : MonoBehaviour {
         }
 
         Input.gyro.enabled = true;
+        loadingBar = GameObject.Find("LoadingBar").GetComponent<RectTransform>();
 
 
 
+        LoadEverything();
+
+    }
+
+    void SaveEverything()
+    {
+        Debug.Log("Saving Everything");
+        //Open all tabs to save them
+        GameObject.Find("Inventory Tab").GetComponent<UIWindowPage>().Show();
+        GameObject.Find("Inventory Tab").transform.FindChild("InvPanel").GetComponent<EasySave2CollectionSaverLoader>().Save();
+        GameObject.Find("Character Tab").GetComponent<UIWindowPage>().Show();
+        GameObject.Find("Character Tab").GetComponent<EasySave2CollectionSaverLoader>().Save();
+        GameObject.Find("Bank Tab").GetComponent<UIWindowPage>().Show();
+        GameObject.Find("Area Tab").GetComponent<UIWindowPage>().Show();
+    }
+
+    void LoadEverything()
+    {
+        Debug.Log("Loading Everything");
+        StartCoroutine(Loading()); 
+    }
+
+    int step = 0;
+    IEnumerator Loading()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        //Open all tabs to load them
+        //Debug.Log("Doing step " + step);
+        switch (step)
+        {
+            case 0:
+                GameObject.Find("Inventory Tab").GetComponent<UIWindowPage>().Show();
+            break;
+            case 1:
+                GameObject.Find("Character Tab").GetComponent<UIWindowPage>().Show();
+            break;
+            case 2:
+                GameObject.Find("Bank Tab").GetComponent<UIWindowPage>().Show();
+            break;
+            case 3:
+                GameObject.Find("Area Tab").GetComponent<UIWindowPage>().Show();
+            break;
+            case 4:
+                loadingScreen.Hide();
+            break;
+        }
+
+        if (step < 4)
+        {
+            step++;
+            StartCoroutine(Loading());
+        }
     }
 
     void OnApplicationQuit()
     {
-        //Open all tabs to save them
-        GameObject.Find("Inventory Tab").GetComponent<UIWindowPage>().Show();
-        GameObject.Find("Character Tab").GetComponent<UIWindowPage>().Show();
-        GameObject.Find("Bank Tab").GetComponent<UIWindowPage>().Show();
-        
-        
-        //GameObject.Find("Inventory Tab").transform.FindChild("InvPanel").GetComponent<EasySave2CollectionSaverLoader>().Save();
-
+        SaveEverything();
     }
+
+    
 
     bool celebrationActive = false;
     float celebrationTimer = 0;
@@ -60,19 +111,25 @@ public class GameManager : MonoBehaviour {
         if (notificationCooldown > 0) notificationCooldown -= Time.deltaTime;
         if (notificationCooldown < 0) notificationCooldown = 0;
 
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.Alpha4))
+            InventoryManager.AddCurrency(1, 2);
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.Alpha5))
+            InventoryManager.AddCurrency(-1, 2);
 
-        if(celebrationActive)
+        if (celebrationActive)
         {
             celebrationTimer += Time.deltaTime;
             celebration.color = new Color(1, 1, 1, Mathf.Lerp(celebration.color.a, 1, celebrationTimer));
             if(celebrationTimer > 3) celebration.color = new Color(1, 1, 1, Mathf.Lerp(celebration.color.a, 0, celebrationTimer-3));
             if (celebrationTimer > 4)
             {
-                Debug.Log("Disable");
                 celebrationTimer = 0;
                 celebrationActive = false;
             }
         }
+
+        loadingBar.anchoredPosition = new Vector2(-200+(50* step), -189);
+        loadingBar.sizeDelta = new Vector2(100*step,22);
 
 
     }
@@ -96,7 +153,7 @@ public class GameManager : MonoBehaviour {
             newNotification.sizeDelta = new Vector2(0, 0);
             newNotification.FindChild("Text").GetComponent<Text>().text = message;
             newNotification.FindChild("Text").GetComponent<Animator>().Play("notification");
-            newNotification.SetAsFirstSibling();
+            newNotification.SetAsLastSibling();
         }
     }
 
@@ -111,12 +168,26 @@ public class GameManager : MonoBehaviour {
         newNotification.sizeDelta = new Vector2(0, 0);
         newNotification.FindChild("Text").GetComponent<Text>().text = message;
         newNotification.FindChild("Text").GetComponent<Animator>().Play("textFade");
-        newNotification.SetAsFirstSibling();
+        newNotification.SetAsLastSibling();
         
     }
 
     public void Celebration()
     {
         celebrationActive = true;
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
+    public void ResetSkills()
+    {
+        Skills skills = GameObject.Find("Player").GetComponent<Skills>();
+        foreach (Skills.Skill s in skills.skills)
+        {
+            s.Reset();
+        }
     }
 }
